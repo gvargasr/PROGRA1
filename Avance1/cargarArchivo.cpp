@@ -215,7 +215,7 @@ void cargarArchivo::cargaInicial(){
 	archivo.close();
 	
 }
-
+/*
 int main(){
 	cargarArchivo Inicio;
 	Inicio.cargaInicial();
@@ -240,48 +240,145 @@ int main(){
 	Inicio.listaCliente->Mostrar();
 
 }
+*/
 
-
-
-/*
-int main(){
-		cout<<"*************TAREA CORTA #1************************"<<endl<<endl;
-		cout<<"Evaluacion en POSTFIJO"<<endl;
-		cout<<"\nIntegrantes:\nGustavo Vargas Ramirez   --- 200409141 \nGabriel Campos Gutierrez --- 2023093692"<<endl;
-	cargarArchivo postFijo;
-	pnodoStr primeroL1=new nodoStr();
-
-	pnodoStr primeroL2=new nodoStr();
-	pnodoStr primeroL3=new nodoStr();
-	pnodoStr primeroL4=new nodoStr();
-	pnodoStr primeroL5=new nodoStr();
-	
-	pnodoStr Cola[5]={primeroL1,primeroL2,primeroL3,primeroL4,primeroL5};
-	postFijo.crearCola(Cola);
-	int i = 0;
-	while(i<5){
-		cout<<endl<<"************************************************************"<<endl;
-		cout<<"\n                    ***LECTURA DE ARCHIVO "<<i+1<<".***\n\nExpresion original: "<<endl<<endl;
-		postFijo.MostrarExpresionHuman(Cola[i]); 
-		cout<<"\nExpresion como lista: "<<endl<<endl;
-		postFijo.MostrarExpresion(Cola[i]);   
-		cout<<endl;
-		cout<<"Expresion creada en Postfijo: "<<endl<<endl;
-		postFijo.crearPostfijo(Cola[i]);
-		postFijo.Imprimir();
-		cout<<endl;
-		cout<<"Expresion postfijo 'Human readable': "<<endl<<endl;
-		postFijo.Mostrar();
-		cout<<endl;
-		cout<<"Resultado Final: "<<endl<<endl;
-		cout<<">>> ";
-		postFijo.lectorListaPostfija();
-		cout<<" <<< ";
-		cout<<endl;
-		i=i+1;
-		postFijo.~cargarArchivo();	
+void SubMenu1(){
+		cout << endl << "----------------------------" << endl;
+        cout << endl << "      1. Leer Archivos   " << endl;
+        cout << endl << "----------------------------" << endl;
+		cout << endl;
+		cout << "1. Cargar Archivos"<<endl;
+		cout << "2. Volver"<<endl;
+		cout <<endl<<endl;
+		cout <<"Seleccione una opcion: "<<endl;		
+		char opt;
+		cin >> opt;
+		
+	switch(opt) {
+		case '1':
+			cout<<"SubMenu1 - opcion 1";
+			break;
+		case '2':
+			cout<<"Volviendo a Main Menu"<<endl;
+			break;	
+	default:
+		cout<<"!!! Valor incorrecto, ingresar un valor dentro del rango !!!"<<endl;
+		SubMenu1();
 	}
+}
+
+void SubMenu2(){
+		cout << endl << "----------------------------" << endl;
+        cout << endl << "      2. Insertar   " << endl;
+        cout << endl << "----------------------------" << endl;
+		cout << endl;
+		cout << "1. Pais"<<endl;
+		cout << "2. Ciudad"<<endl;
+		cout << "3. Restaurante"<<endl;
+		cout << "4. Menu"<<endl;
+		cout << "5. Producto"<<endl;
+		cout << "6. Cliente"<<endl;
+		cout << "7. Volver"<<endl;
+		cout <<endl<<endl;
+		cout <<"Seleccione una opcion: "<<endl;		
+		char opt;
+		cin >> opt;
+		
+	switch(opt) {
+		case '1':
+			cout<<"SubMenu2 - opcion 1";
+			break;
+		case '2':
+			cout<<"SubMenu2 - opcion 2";
+			break;
+		case '3':
+			cout<<"SubMenu2 - opcion 3"<<endl;
+			break;	
+		case '4':
+			cout<<"SubMenu2 - opcion 4";
+			break;
+		case '5':
+			cout<<"SubMenu2 - opcion 5"<<endl;
+			break;	
+		case '6':
+			cout<<"SubMenu2 - opcion 6"<<endl;
+			break;
+		case '7':
+			cout<<"Volviendo a Main Menu"<<endl;
+			break;	
+	default:
+		cout<<"!!! Valor incorrecto, ingresar un valor dentro del rango !!!"<<endl;
+		SubMenu1();
+	}
+}
+
+/* TODO (guvargas#1#): Terminar el menu y las opciones */
+
+
+void MainMenu(){
+	while(true){
+	    cout << endl << "----------------------------" << endl;
+        cout << endl << "      Main Menu   " << endl;
+        cout << endl << "----------------------------" << endl;
+		cout << endl;
+		cout << "1. Leer Archivos"<<endl;
+		cout << "2. Insertar"<<endl;
+		cout << "3. Eliminar"<<endl;
+		cout << "4. Buscar"<<endl;
+		cout << "5. Modificar"<<endl;
+		cout << "6. Reportes"<<endl;
+		cout << "7. Info"<<endl;
+		cout << "8. Salir"<<endl;
+		cout <<endl<<endl;
+		cout <<"Seleccione una opcion: "<<endl;
+		
+		char opt;
+		cin >> opt;
+    
+    switch(opt) {
+    	case '1' : 
+			cout<<"Ingresando a Submenu 1...";
+			SubMenu1();
+			MainMenu();
+			break;
+    	case '2':
+    		cout<<"Ingresando a Submenu 2...";
+    		SubMenu2();
+    		MainMenu();
+    		break;
+    	case '3':
+    		cout<<"Ingresando a Submenu 3...";
+    		break;
+    	case '4':
+    		cout<<"Ingresando a Submenu 4...";
+    		break;
+    	case '5':
+    		cout<<"Ingresando a Submenu 5...";
+    		break;
+		case '6':
+    		cout<<"Ingresando a Submenu 6...";
+    		break;
+		case '7':
+    		cout<<"Ingresando a Submenu 7...";
+    		break;
+		case '8':
+    		cout<<endl<<endl<<endl<<"##################      Good Bye!!     ####################";
+    		break;
+			exit(1);		
+    default: 
+    cout<<"!!! Valor incorrecto, ingresar un valor dentro del rango !!!"<<endl;
+	MainMenu();
+	}
+	break;
+	}
+}
+
+
+int main(){
+		cout<<"*************PROGRA #1************************"<<endl<<endl<<endl;
+//		cout<<"\nIntegrantes:\nGustavo Vargas Ramirez   --- 200409141 \nGabriel Campos Gutierrez --- 2023093692"<<endl;
 	
+	MainMenu();
     cout<<endl<<endl<<endl;
     cout<<"###########################################################"<<endl;
     cout<<"###########################################################"<<endl;
@@ -292,17 +389,8 @@ int main(){
 	cout<<"###########################################################"<<endl;
 	return 0;
 }
- */
 
-/*
-Leer Archivos---LISTO
-Crear Cola (Arreglo)--- LISTO
-Insertar Archivos en la Cola --- LISTO
-Recorrer Arreglo de la Cola  --- LISTO
-Crear Postfijo               --- LISTO
-Evaluar Expresión en Postfijo --- LISTO
-Imprimir Expresión Original, Expresión Postfijo y Evaluación  --- lISTO
-*/
+
 
 
 
