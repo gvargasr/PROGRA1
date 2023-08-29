@@ -4,18 +4,23 @@
 #include <string>
 #include <math.h>
 #include "listaDPais.cpp"
+#include "listaClientes.cpp"
 
 using namespace std;
 
 
 class cargarArchivo {
    public:
-    cargarArchivo() { listaPais = new listaDPais(); }
+    cargarArchivo() {
+	 listaPais = new listaDPais();
+	 listaCliente = new listaClientes(); 
+	 }
     ~cargarArchivo();
     void cargaInicial();
 	
 //	private:
     listaDPais *listaPais;
+    listaClientes *listaCliente;
   
 };
 
@@ -196,8 +201,17 @@ void cargarArchivo::cargaInicial(){
 	}
  	archivo.close();
 
-	//// No modificar nada de arriba
-	//Falta Cargar CLIENTES
+	
+	archivo.open("Archivos/Clientes.txt");
+	while(!archivo.eof()){
+		string cedula;
+		string nombre;
+		getline(archivo, cedula, ';');
+		getline(archivo, nombre);
+		int temp = stoi(cedula);
+		listaCliente->InsertarFinal(temp,nombre);
+	}
+	archivo.close();
 	
 }
 
@@ -221,7 +235,8 @@ int main(){
 	cout<<endl;
 	cout<<"Lista McPanama, menu HC"<<endl;
 	Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero->listaMenu->primero->listaProd->Mostrar();
-	cout<<endl;
+	cout<<endl<<endl;
+	Inicio.listaCliente->Mostrar();
 
 }
 
