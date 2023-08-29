@@ -24,14 +24,13 @@ nodoLDCiudad(int codigo, string nombre,  nodoLDCiudad * signodo)
        listaRestaurante = new listaDCRest();
     }
 
-   private:
+ //  private:
     int cod;
     string ciudad;
     listaDCRest *listaRestaurante = NULL;
     nodoLDCiudad *siguiente;
     nodoLDCiudad *anterior;
-    
-   friend class listaDPais;     
+       
    friend class listaDCiudad;
 };
 
@@ -51,23 +50,25 @@ class listaDCiudad {
     void BorrarPosicion(int pos);
     void Mostrar();
     int largoLista();
-	void InsertarRest(int codigo, string nombre);
+	void InsertarRestaurante(int codigo, string nombre, listaDCRest listaR);
 	void MostrarListaRest();
 	pnodoRest GetListaRest();
 	pnodoCiudad EntregarListaCiudad();
+	bool buscarCiudad(int codigo);
 
 
 
 	    
-   private:
+ //  private:
     pnodoCiudad primero;
   
 };
 
-// Insertar Restaurante desde ListaCiudad
-void listaDCiudad::InsertarRest(int codigo, string nombre){
-	pnodoCiudad aux = primero;
-	aux->listaRestaurante->InsertarInicio(codigo,nombre);	
+
+
+//Insertar Restaurante desde ListaCiudad
+void listaDCiudad::InsertarRestaurante(int codigo, string nombre, listaDCRest listaR){
+	listaR.InsertarFinal(codigo,nombre);
 }
 
 //Mostrar Lista de Restaurantes
@@ -87,6 +88,27 @@ pnodoCiudad listaDCiudad::EntregarListaCiudad(){
 	return primero;
 }
 
+bool listaDCiudad::buscarCiudad(int codigo){
+	if(ListaVacia()){
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		return false;
+	}
+	else
+	{
+		pnodoCiudad aux=primero;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			return true;
+		}
+			else
+			aux=aux->siguiente;
+		}
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		return false;
+	}
+}
 
 listaDCiudad::~listaDCiudad()
 {
@@ -140,14 +162,14 @@ void listaDCiudad::InsertarFinal(int codigo, string nombre){
        
    }
    else{ 
-		pnodoCiudad aux = primero;
-		if(aux->cod!=codigo){				  
-        while ( aux != NULL)
+		pnodoCiudad aux = primero;	  
+        while ( aux->siguiente != NULL && aux->cod!=codigo)
           aux= aux->siguiente;
+        if(aux->cod!=codigo){
         aux->siguiente=new nodoLDCiudad(codigo, nombre);
-        aux->siguiente->anterior=aux;       
-		}    
-  }
+        aux->siguiente->anterior=aux;
+		}	
+	}
 }
 
 

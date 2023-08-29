@@ -27,7 +27,9 @@ listaPais = NULL;
 
 
 void cargarArchivo::cargaInicial(){
+	pnodoPais aux = listaPais->primero;
 	ifstream archivo;
+
 	archivo.open("Archivos/Paises.txt");
 	while(!archivo.eof()){
 		string codigo;
@@ -36,36 +38,67 @@ void cargarArchivo::cargaInicial(){
 		getline(archivo, pais);
 		listaPais->InsertarFinal(stoi(codigo),pais);
 	}
-/*	archivo.close();
+	archivo.close();
+
 	archivo.open("Archivos/Ciudades.txt");
 	while(!archivo.eof()){
 		string codpais;
 		string codigo;
 		string ciudad ;
-		
 		getline(archivo, codpais, ';');
 		getline(archivo, codigo, ';');
 		getline(archivo, ciudad);
-		
 		pnodoPais aux = listaPais->primero;
-
-		int temp = stoi(codigo);
-
-		while(aux!=NULL){
-			if(aux->cod == stoi(codpais))
-				aux->listaCiudad->InsertarFinal(temp,ciudad);
-			aux = aux->siguiente;
-		}
+		int temp = stoi(codpais);
+		int temp2 = stoi(codigo);
+		if(listaPais->buscarPais(temp)==true){
+			while(aux!=NULL){
+				if(aux->cod == temp){
+					listaPais->InsertarCiudad(temp2,ciudad,aux->listaCiudad);
+				}
+			aux=aux->siguiente;
+			}
+		}			
 	}
 	archivo.close();
-*/
 
+/* 	archivo.open("Archivos/Restaurantes.txt");
+	while(!archivo.eof()){
+		string codpais;
+		string codCiudad;
+		string numRest;
+		string nombre;
+		getline(archivo, codpais, ';');
+		getline(archivo, codCiudad, ';');
+		getline(archivo, numRest, ';');
+		getline(archivo, nombre);
+		pnodoPais aux = listaPais->primero;
+		int temp = stoi(codpais);
+		int temp2 = stoi(codciudad);
+		int temp3 = stoi(numRest);
+		if(listaPais->buscarPais(temp)==true){
+			while(aux!=NULL){
+				if(aux->cod == temp){
+					aux->listaCiudad->InsertarFinal(temp2,ciudad);
+				}
+			aux=aux->siguiente;
+			}
+			
+		}
+	}
+	archivo.close();*/
 }
 
 int main(){
 	cargarArchivo Inicio;
 	Inicio.cargaInicial();
 	Inicio.listaPais->Mostrar();
+	cout<<"Lista Ciudades de panama"<<endl;
+	Inicio.listaPais->primero->listaCiudad->Mostrar();
+	cout<<"Lista Ciudades de Estados Unidos"<<endl;
+	Inicio.listaPais->primero->siguiente->listaCiudad->Mostrar();
+	cout<<"Lista Ciudades de Mexico"<<endl;
+	Inicio.listaPais->primero->siguiente->siguiente->listaCiudad->Mostrar();
 //	cout<<"ListaCiudad"<<endl;
 //	Inicio.listaPais->primero->listaCiudad->Mostrar();
 //	Inicio.listaPais->primero->siguiente->listaCiudad->Mostrar();

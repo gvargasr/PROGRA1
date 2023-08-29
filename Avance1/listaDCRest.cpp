@@ -25,7 +25,7 @@ class nodoLDCRest {
 
     }
 
- private:
+// private:
     int cod;
     string rest;
     listaDMenu *listaMenu = NULL;
@@ -52,7 +52,7 @@ class listaDCRest {
     void BorrarInicio();
     void BorrarPosicion(int pos);
     int largoLista();
-    void InsertarMenu(int codigo, string nombre);
+    void InsertarMenu(int codigo, string nombre, listaDMenu listaM);
     void MostrarListaMenu();
 	pnodoMenu GetListaMenu();
 	pnodoRest EntregarListaRest();
@@ -63,9 +63,8 @@ class listaDCRest {
 };
 
 // Insertar menu desde ListaRest
-void listaDCRest::InsertarMenu(int codigo, string nombre){
-	pnodoRest aux = primero;
-	aux->listaMenu->InsertarInicio(codigo,nombre);	
+void listaDCRest::InsertarMenu(int codigo, string nombre, listaDMenu listaM){
+	listaM.InsertarFinal(codigo, nombre);
 }
 
 //Mostrar Lista de Menu

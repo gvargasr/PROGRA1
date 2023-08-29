@@ -24,7 +24,7 @@ nodoLDPais(int codigo, string nombre,  nodoLDPais * signodo)
        siguiente = signodo;
     }
 
-//   private:
+ //  private:
     int cod;
     string pais;
     listaDCiudad *listaCiudad = NULL;
@@ -51,7 +51,7 @@ class listaDPais {
     void BorrarPosicion(int pos);
     void Mostrar();
     int largoLista();
-	void InsertarCiudad(int codPais, int codigo, string nombre);
+	void InsertarCiudad(int codigo, string nombre, listaDCiudad *listaC);
 	void MostrarListaCiudad();
 	pnodoCiudad GetListaCiudad();
 	pnodoPais EntregarListaPais();
@@ -62,18 +62,11 @@ class listaDPais {
 
 //   private:
     pnodoPais primero;
-  
 };
 
 // Insertar Ciudad desde ListaPais
-void listaDPais::InsertarCiudad(int codPais, int codigo, string nombre){
-	pnodoPais aux = primero;
-	while(primero!= NULL){
-		if(primero->cod== codPais){
-			aux->listaCiudad->InsertarFinal(codigo,nombre);
-		}	
-		aux = primero->siguiente;
-	}
+void listaDPais::InsertarCiudad(int codigo, string nombre, listaDCiudad *listaC){
+	listaC->InsertarFinal(codigo,nombre);
 }
 
 //Mostrar Lista de Ciudad
@@ -85,7 +78,7 @@ void listaDPais::MostrarListaCiudad(){
 //Verifica si el pais se encuentra en la lista
 bool listaDPais::buscarPais(int codigo){
 	if(ListaVacia()){
-		cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
 		return false;
 	}
 	else
@@ -94,13 +87,13 @@ bool listaDPais::buscarPais(int codigo){
 		while(aux!=NULL)
 		{
 			if(aux->cod == codigo){
-			cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
 			return true;
 		}
 			else
 			aux=aux->siguiente;
 		}
-		cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
 		return false;
 	}
 }
@@ -172,16 +165,14 @@ void listaDPais::InsertarFinal(int codigo, string nombre){
        
    }
    else{ 
-		pnodoPais aux = primero;
-		if(aux->cod!=codigo){				  
-        while ( aux->siguiente != NULL)
+		pnodoPais aux = primero;	  
+        while ( aux->siguiente != NULL && aux->cod!=codigo)
           aux= aux->siguiente;
-        if(aux->siguiente==NULL){
+        if(aux->cod!=codigo){
         aux->siguiente=new nodoLDPais(codigo, nombre);
-        aux->siguiente->anterior=aux;       
-		}
-		}    
-  }
+        aux->siguiente->anterior=aux;
+		}	
+	}
 }
 
 void listaDPais::InsertarPos(int codigo, string nombre,int pos)

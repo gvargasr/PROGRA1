@@ -25,7 +25,7 @@ nodoLDMenu(int codigo, string nombre, nodoLDMenu * signodo)
        
     }
 	
-   private:
+//   private:
     int cod;
     string nomMenu;
     listaDProducto *listaProd = NULL;
@@ -52,7 +52,7 @@ class listaDMenu {
     void BorrarPosicion(int pos);
     void Mostrar();
     int largoLista();
-    void InsertarProducto(int codigo, string nombre, int kcal, int precio);
+    void InsertarProducto(int codigo, string nombre, int kcal, int precio, listaDProducto *listaP);
     void MostrarListaProd();
 	pnodoProd GetListaProd();
 	pnodoMenu EntregarListaMenu();
@@ -63,9 +63,9 @@ class listaDMenu {
 };
 
 // Insertar producto desde ListaMenu
-void listaDMenu::InsertarProducto(int codigo, string nombre, int kcal, int precio){
-	pnodoMenu aux = primero;
-	aux->listaProd->InsertarInicio(codigo,nombre,kcal,precio);	
+void listaDMenu::InsertarProducto(int codigo, string nombre, int kcal, int precio, listaDProducto *listaP){
+	listaP->InsertarFinal(codigo,nombre,kcal,precio);
+	
 }
 
 //Mostrar Lista de Productos
