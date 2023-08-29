@@ -22,6 +22,7 @@ class nodoLDCRest {
        rest = nombre;
        siguiente = signodo;
        listaMenu = new listaDMenu();
+       
 
     }
 
