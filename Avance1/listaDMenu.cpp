@@ -57,7 +57,7 @@ class listaDMenu {
 	pnodoProd GetListaProd();
 	pnodoMenu EntregarListaMenu();
     
-   private:
+ //  private:
     pnodoMenu primero;
   
 };

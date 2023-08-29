@@ -62,7 +62,7 @@ class listaDProducto {
     pnodoProd EntregarListaProd();
 
     
-   private:
+ //  private:
     pnodoProd primero;
   
 };

@@ -134,10 +134,70 @@ void cargarArchivo::cargaInicial(){
 			
 		}
 	}
- 	
-	//// No modificar nada de arriba
-	//Falta Cargar Productos
+ 	archivo.close();
 	
+
+ 	archivo.open("Archivos/Productos.txt");
+ 		while(!archivo.eof()){
+		string codPais;
+		string codCiudad;
+		string codRest;
+		string codMenu;
+		string codProd;
+		string nombre;
+		string kcal;
+		string precio;
+		
+		getline(archivo, codPais, ';');
+		getline(archivo, codCiudad, ';');
+		getline(archivo, codRest, ';');
+		getline(archivo, codMenu, ';');
+		getline(archivo, codProd, ';');
+		getline(archivo, nombre, ';');
+		getline(archivo, kcal, ';');
+		getline(archivo, precio);
+		
+		pnodoPais aux = listaPais->primero;
+		int temp = stoi(codPais);
+		int temp2 = stoi(codCiudad);
+		int temp3 = stoi(codRest);
+		int temp4 = stoi(codMenu);
+		int temp5 = stoi(codProd);
+		int temp6 = stoi(kcal);
+		int temp7 = stoi(precio);
+		
+		if(listaPais->buscarPais(temp)==true){
+			while(aux!=NULL){
+				if(aux->cod == temp){
+					pnodoCiudad aux2 = aux->listaCiudad->primero;
+					while(aux2!=NULL){
+						if(aux2->cod == temp2){
+							pnodoRest aux3 = aux2->listaRestaurante->primero;
+							pnodoRest head = aux2->listaRestaurante->primero;
+								while(aux3->siguiente!=head && aux3->cod!=temp3)
+									aux3=aux3->siguiente;
+								if(aux3->cod==temp);
+									pnodoMenu aux4 = aux3->listaMenu->primero;
+									while(aux4!=NULL){
+										if(aux4->cod == temp4){
+										aux3->listaMenu->InsertarProducto(temp5, nombre, temp6, temp7, aux4->listaProd);
+										}
+									aux4= aux4->siguiente;
+									}
+								
+						}
+					aux2= aux2->siguiente;
+					}
+				}
+			aux=aux->siguiente;
+			}
+			
+		}
+	}
+ 	archivo.close();
+
+	//// No modificar nada de arriba
+	//Falta Cargar CLIENTES
 	
 }
 
@@ -159,8 +219,10 @@ int main(){
 	cout<<"Lista Menu Panama "<<endl;
 	Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero->listaMenu->Mostrar();
 	cout<<endl;
-	pnodoRest aux0 = Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero;
-	pnodoRest aux00 = Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero;
+	cout<<"Lista McPanama, menu HC"<<endl;
+	Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero->listaMenu->primero->listaProd->Mostrar();
+	cout<<endl;
+
 }
 
 
