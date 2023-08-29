@@ -39,8 +39,9 @@ void cargarArchivo::cargaInicial(){
 	while(!archivo.eof()){
 		string codigo;
 		string pais;
-		getline(archivo, codigo, ';');
+		getline(archivo,codigo, ';');
 		getline(archivo, pais);
+			
 		listaPais->InsertarFinal(stoi(codigo),pais);
 	}
 	archivo.close();
@@ -152,7 +153,7 @@ void cargarArchivo::cargaInicial(){
 		string nombre;
 		string kcal;
 		string precio;
-		
+		 
 		getline(archivo, codPais, ';');
 		getline(archivo, codCiudad, ';');
 		getline(archivo, codRest, ';');
