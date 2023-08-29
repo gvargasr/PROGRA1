@@ -52,19 +52,19 @@ class listaDCRest {
     void BorrarInicio();
     void BorrarPosicion(int pos);
     int largoLista();
-    void InsertarMenu(int codigo, string nombre, listaDMenu listaM);
+    void InsertarMenu(int codigo, string nombre, listaDMenu *listaM);
     void MostrarListaMenu();
 	pnodoMenu GetListaMenu();
 	pnodoRest EntregarListaRest();
     
-   private:
+//   private:
     pnodoRest primero;
    
 };
 
 // Insertar menu desde ListaRest
-void listaDCRest::InsertarMenu(int codigo, string nombre, listaDMenu listaM){
-	listaM.InsertarFinal(codigo, nombre);
+void listaDCRest::InsertarMenu(int codigo, string nombre, listaDMenu *listaM){
+	listaM->InsertarFinal(codigo, nombre);
 }
 
 //Mostrar Lista de Menu
@@ -154,22 +154,22 @@ void listaDCRest::InsertarFinal(int codigo, string nombre)
      primero->anterior=primero;
      primero->siguiente=primero;
    }  
-   else
-   {
+   else{
      pnodoRest aux = primero;
-     	if(aux->cod!=codigo){
-     		while(aux->siguiente!=primero)
+     	while ( aux->siguiente != primero && aux->cod!=codigo)
      		aux=aux->siguiente;
-		pnodoRest nuevo = new nodoLDCRest(codigo, nombre);//1
-   		nuevo->anterior = primero->anterior;//2
-   		/*nuevo->siguiente=primero->anterior->siguiente;opcion para intruccion 3*/
-		nuevo->siguiente=primero;// coloca alguna de la dos 3
-  		primero->anterior->siguiente=nuevo;//4
- 		primero->anterior=nuevo;//5	
-	}
-
-    }    
+     	if(aux->cod!=codigo){
+     		aux=aux->siguiente;
+			pnodoRest nuevo = new nodoLDCRest(codigo, nombre);//1
+   			nuevo->anterior = primero->anterior;//2
+   			/*nuevo->siguiente=primero->anterior->siguiente;opcion para intruccion 3*/
+			nuevo->siguiente=primero;// coloca alguna de la dos 3
+  			primero->anterior->siguiente=nuevo;//4
+ 			primero->anterior=nuevo;//5	
+			}
+    	}    
 }
+
 
 
 void listaDCRest::InsertarPos(int codigo, string nombre, int pos)

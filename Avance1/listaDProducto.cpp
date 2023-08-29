@@ -33,7 +33,7 @@ nodoLDProducto(int codigo, string nombre, int kcal, int precio, nodoLDProducto *
        siguiente = signodo;
     }
 
-   private:
+//   private:
     int cod,kcal,precio;
     string nomProd;
     nodoLDProducto *siguiente;
@@ -110,23 +110,24 @@ void listaDProducto::InsertarInicio(int codigo, string nombre, int kcal, int pre
    }
 }
 
-void listaDProducto::InsertarFinal(int codigo, string nombre, int kcal, int precio)
-{
+
+
+void listaDProducto::InsertarFinal(int codigo, string nombre,int kcal, int precio){
    if (ListaVacia())
    {
    
      primero = new nodoLDProducto(codigo, nombre, kcal, precio);
        
    }
-   else
-     { pnodoProd aux = primero;
-     if(aux->cod!=codigo){
-        while ( aux->siguiente != NULL)
+   else{ 
+		pnodoProd aux = primero;	  
+        while ( aux->siguiente != NULL && aux->cod!=codigo)
           aux= aux->siguiente;
+        if(aux->cod!=codigo){
         aux->siguiente=new nodoLDProducto(codigo, nombre, kcal, precio);
-        aux->siguiente->anterior=aux;       
-      }
-}
+        aux->siguiente->anterior=aux;
+		}	
+	}
 }
 
 void listaDProducto::InsertarPos(int codigo, string nombre, int kcal, int precio,int pos)

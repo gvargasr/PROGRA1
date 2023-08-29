@@ -62,7 +62,8 @@ void cargarArchivo::cargaInicial(){
 	}
 	archivo.close();
 
-/* 	archivo.open("Archivos/Restaurantes.txt");
+
+ 	archivo.open("Archivos/Restaurantes.txt");
 	while(!archivo.eof()){
 		string codpais;
 		string codCiudad;
@@ -74,19 +75,70 @@ void cargarArchivo::cargaInicial(){
 		getline(archivo, nombre);
 		pnodoPais aux = listaPais->primero;
 		int temp = stoi(codpais);
-		int temp2 = stoi(codciudad);
+		int temp2 = stoi(codCiudad);
 		int temp3 = stoi(numRest);
 		if(listaPais->buscarPais(temp)==true){
 			while(aux!=NULL){
 				if(aux->cod == temp){
-					aux->listaCiudad->InsertarFinal(temp2,ciudad);
+					pnodoCiudad aux2 = aux->listaCiudad->primero;
+					while(aux2!=NULL){
+						if(aux2->cod == temp2){
+							aux->listaCiudad->InsertarRestaurante(temp3,nombre, aux2->listaRestaurante);
+						}
+						aux2= aux2->siguiente;
+					}
 				}
 			aux=aux->siguiente;
 			}
 			
 		}
 	}
-	archivo.close();*/
+	archivo.close();	
+
+ 	archivo.open("Archivos/Menu.txt");
+ 		while(!archivo.eof()){
+		string codPais;
+		string codCiudad;
+		string codRest;
+		string codMenu;
+		string nombre;
+		
+		getline(archivo, codPais, ';');
+		getline(archivo, codCiudad, ';');
+		getline(archivo, codRest, ';');
+		getline(archivo, codMenu, ';');
+		getline(archivo, nombre);
+		pnodoPais aux = listaPais->primero;
+		int temp = stoi(codPais);
+		int temp2 = stoi(codCiudad);
+		int temp3 = stoi(codRest);
+		int temp4 = stoi(codMenu);
+		if(listaPais->buscarPais(temp)==true){
+			while(aux!=NULL){
+				if(aux->cod == temp){
+					pnodoCiudad aux2 = aux->listaCiudad->primero;
+					while(aux2!=NULL){
+						if(aux2->cod == temp2){
+							pnodoRest aux3 = aux2->listaRestaurante->primero;
+							pnodoRest head = aux2->listaRestaurante->primero;
+								while(aux3->siguiente!=head && aux3->cod!=temp3)
+									aux3=aux3->siguiente;
+								if(aux3->siguiente==head);
+								aux2->listaRestaurante->InsertarMenu(temp4,nombre,aux3->listaMenu);
+						}
+						aux2= aux2->siguiente;
+					}
+				}
+			aux=aux->siguiente;
+			}
+			
+		}
+	}
+ 	
+	//// No modificar nada de arriba
+	//Falta Cargar Productos
+	
+	
 }
 
 int main(){
@@ -99,19 +151,16 @@ int main(){
 	Inicio.listaPais->primero->siguiente->listaCiudad->Mostrar();
 	cout<<"Lista Ciudades de Mexico"<<endl;
 	Inicio.listaPais->primero->siguiente->siguiente->listaCiudad->Mostrar();
-//	cout<<"ListaCiudad"<<endl;
-//	Inicio.listaPais->primero->listaCiudad->Mostrar();
-//	Inicio.listaPais->primero->siguiente->listaCiudad->Mostrar();
-//	Inicio.listaPais.Mostrar();
-
-//	listaDPais root;
-//	root->InsertarInicio(506, "Costa Rica");
-//	root.GetListaCiudad()->InsertarInicio(123,"Chepe");
-
-//	root
-//	root.primero->listaCiudad.InsertarInicio(4, "Heredia");
-//	root.Mostrar();
-//	root->primero.Mostrar();
+	cout<<"Lista Restaurantes Panama "<<endl;
+	Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->Mostrar();
+	cout<<"Lista Restaurantes EEUU "<<endl;
+	Inicio.listaPais->primero->siguiente->listaCiudad->primero->siguiente->listaRestaurante->Mostrar();
+	cout<<endl;
+	cout<<"Lista Menu Panama "<<endl;
+	Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero->listaMenu->Mostrar();
+	cout<<endl;
+	pnodoRest aux0 = Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero;
+	pnodoRest aux00 = Inicio.listaPais->primero->listaCiudad->primero->listaRestaurante->primero;
 }
 
 
@@ -123,6 +172,7 @@ int main(){
 		cout<<"\nIntegrantes:\nGustavo Vargas Ramirez   --- 200409141 \nGabriel Campos Gutierrez --- 2023093692"<<endl;
 	cargarArchivo postFijo;
 	pnodoStr primeroL1=new nodoStr();
+
 	pnodoStr primeroL2=new nodoStr();
 	pnodoStr primeroL3=new nodoStr();
 	pnodoStr primeroL4=new nodoStr();

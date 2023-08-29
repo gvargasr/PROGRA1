@@ -50,7 +50,7 @@ class listaDCiudad {
     void BorrarPosicion(int pos);
     void Mostrar();
     int largoLista();
-	void InsertarRestaurante(int codigo, string nombre, listaDCRest listaR);
+	void InsertarRestaurante(int codigo, string nombre, listaDCRest *listaR);
 	void MostrarListaRest();
 	pnodoRest GetListaRest();
 	pnodoCiudad EntregarListaCiudad();
@@ -67,8 +67,8 @@ class listaDCiudad {
 
 
 //Insertar Restaurante desde ListaCiudad
-void listaDCiudad::InsertarRestaurante(int codigo, string nombre, listaDCRest listaR){
-	listaR.InsertarFinal(codigo,nombre);
+void listaDCiudad::InsertarRestaurante(int codigo, string nombre, listaDCRest *listaR){
+	listaR->InsertarFinal(codigo,nombre);
 }
 
 //Mostrar Lista de Restaurantes

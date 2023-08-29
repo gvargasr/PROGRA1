@@ -128,23 +128,22 @@ void listaDMenu::InsertarInicio(int codigo, string nombre)
    }
 }
 
-void listaDMenu::InsertarFinal(int codigo, string nombre)
-{
+void listaDMenu::InsertarFinal(int codigo, string nombre){
    if (ListaVacia())
    {
    
      primero = new nodoLDMenu(codigo, nombre);
        
    }
-   else
-     { pnodoMenu aux = primero;
-     if(aux->cod!=codigo){
-        while ( aux->siguiente != NULL)
+   else{ 
+		pnodoMenu aux = primero;	  
+        while ( aux->siguiente != NULL && aux->cod!=codigo)
           aux= aux->siguiente;
+        if(aux->cod!=codigo){
         aux->siguiente=new nodoLDMenu(codigo, nombre);
-        aux->siguiente->anterior=aux;       
-      }
-}
+        aux->siguiente->anterior=aux;
+		}	
+	}
 }
 
 void listaDMenu::InsertarPos(int codigo, string nombre,int pos)
