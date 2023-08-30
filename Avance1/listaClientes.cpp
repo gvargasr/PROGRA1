@@ -49,6 +49,8 @@ class listaClientes {
     void BorrarInicio();
     void borrarPosicion(int pos);
     int largoLista();// retorno un valor numerico
+    int buscarPos(int codigo);
+
     
    private:
     pnodo primero;
@@ -109,23 +111,18 @@ void listaClientes::InsertarInicio(int v, string n)//3 10 265
  
 void listaClientes::InsertarFinal(int v, string n)//76
 {
-   if (ListaVacia())
+    if (ListaVacia())
      primero = new nodo(v, n);
-   else
-      { 
-      //primera forma
-	    //pnodo aux = primero;
-      //  while ( aux->siguiente != NULL)
-      //   aux= aux->siguiente;
-      //  aux->siguiente=new nodo(v);
-       
-       //segunda forma 
-       pnodo aux = primero;
-        while ( aux->siguiente != NULL)
-         aux= aux->siguiente;
-        pnodo nuevo=new nodo(v, n);
-        aux->siguiente=nuevo;
-      }    
+     
+    else{ 
+		pnodo aux = primero;	  
+        while ( aux->siguiente != NULL && aux->valor!=v)
+        	aux= aux->siguiente;
+    	if(aux->valor!=v){
+        	pnodo nuevo=new nodo(v, n);
+        	aux->siguiente=nuevo;
+			}	
+		}
 }
 
 
@@ -208,6 +205,29 @@ void listaClientes::BorrarInicio()
         }
 }
 
+int listaClientes::buscarPos(int codigo){
+	if(ListaVacia()){
+		return -1;
+	}
+	else
+	{
+		pnodo aux=primero;
+		int cont = 1;
+		while(aux!=NULL)
+		{
+			if(aux->valor == codigo){
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			return cont;
+		}
+			else{
+			aux=aux->siguiente;
+			cont=cont+1;
+			}
+		}
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		return -1;
+	}
+}
 
 
 void listaClientes:: borrarPosicion(int pos){

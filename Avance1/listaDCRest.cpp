@@ -57,11 +57,18 @@ class listaDCRest {
     void MostrarListaMenu();
 	pnodoMenu GetListaMenu();
 	pnodoRest EntregarListaRest();
+	pnodoRest GetPrimero();
+	int buscarPos(int codigo);
+
     
 //   private:
     pnodoRest primero;
    
 };
+
+pnodoRest listaDCRest::GetPrimero(){
+	return primero;
+}
 
 // Insertar menu desde ListaRest
 void listaDCRest::InsertarMenu(int codigo, string nombre, listaDMenu *listaM){
@@ -257,6 +264,35 @@ void listaDCRest::BorrarInicio()
     }
 }
 
+
+int listaDCRest::buscarPos(int codigo){
+	if(ListaVacia()){
+		return -1;
+	}
+	else
+	{
+		pnodoRest aux=primero;
+		int cont = 1;
+		while(aux->siguiente!=primero)
+		{
+			if(aux->cod == codigo){
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			return cont;
+		}
+			else{
+			aux=aux->siguiente;
+			cont=cont+1;
+			}
+		}
+		if(aux->cod == codigo)
+			return cont;
+		else{
+		return -1;
+		}
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+
+	}
+}
 void listaDCRest:: BorrarPosicion(int pos)
 {
     

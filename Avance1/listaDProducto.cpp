@@ -59,7 +59,9 @@ class listaDProducto {
     void BorrarPosicion(int pos);
     void Mostrar();
     int largoLista();
-    pnodoProd EntregarListaProd();
+    pnodoProd GetPrimero();
+    int buscarPos(int codigo);
+
 
     
  //  private:
@@ -209,7 +211,29 @@ void listaDProducto::BorrarInicio()
         }
 }
 
-
+int listaDProducto::buscarPos(int codigo){
+	if(ListaVacia()){
+		return -1;
+	}
+	else
+	{
+		pnodoProd aux=primero;
+		int cont = 1;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			return cont;
+		}
+			else{
+			aux=aux->siguiente;
+			cont=cont+1;
+			}
+		}
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		return -1;
+	}
+}
 
 void listaDProducto:: BorrarPosicion(int pos)
 {
@@ -263,7 +287,7 @@ void listaDProducto::Mostrar()
    cout << endl;
 }
 
-pnodoProd listaDProducto::EntregarListaProd(){
+pnodoProd listaDProducto::GetPrimero(){
 	return primero;
 }
 

@@ -24,7 +24,8 @@ nodoLDCiudad(int codigo, string nombre,  nodoLDCiudad * signodo)
        listaRestaurante = new listaDCRest();
     }
 
- //  private:
+
+//   private:
     int cod;
     string ciudad;
     listaDCRest *listaRestaurante = NULL;
@@ -55,6 +56,9 @@ class listaDCiudad {
 	pnodoRest GetListaRest();
 	pnodoCiudad EntregarListaCiudad();
 	bool buscarCiudad(int codigo);
+	pnodoCiudad GetPrimero();
+	int GetCodigo(pnodoCiudad nodo);
+	int buscarPos(int codigo);
 
 
 
@@ -64,6 +68,14 @@ class listaDCiudad {
   
 };
 
+int listaDCiudad::GetCodigo(pnodoCiudad nodo){
+	return nodo->cod;
+}
+
+pnodoCiudad listaDCiudad::GetPrimero(){
+	pnodoCiudad aux = primero;
+	 return aux;
+}
 
 
 //Insertar Restaurante desde ListaCiudad
@@ -252,7 +264,29 @@ void listaDCiudad::BorrarInicio()
         }
 }
 
-
+int listaDCiudad::buscarPos(int codigo){
+	if(ListaVacia()){
+		return -1;
+	}
+	else
+	{
+		pnodoCiudad aux=primero;
+		int cont = 1;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			return cont;
+		}
+			else{
+			aux=aux->siguiente;
+			cont=cont+1;
+			}
+		}
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		return -1;
+	}
+}
 
 void listaDCiudad:: BorrarPosicion(int pos)
 {
@@ -264,7 +298,7 @@ void listaDCiudad:: BorrarPosicion(int pos)
      {
         if((pos>largoLista())||(pos<0))//no validas
         {
-        cout << "Error en posicion" << endl;
+        cout << "Pais no esta " << endl;
         }
         else
         {

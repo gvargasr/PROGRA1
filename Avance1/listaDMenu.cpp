@@ -56,11 +56,18 @@ class listaDMenu {
     void MostrarListaProd();
 	pnodoProd GetListaProd();
 	pnodoMenu EntregarListaMenu();
+	pnodoMenu GetPrimero();
+	int buscarPos(int codigo);
+
     
- //  private:
+//   private:
     pnodoMenu primero;
   
 };
+
+pnodoMenu listaDMenu::GetPrimero(){
+	return primero;
+}
 
 // Insertar producto desde ListaMenu
 void listaDMenu::InsertarProducto(int codigo, string nombre, int kcal, int precio, listaDProducto *listaP){
@@ -77,7 +84,7 @@ void listaDMenu::MostrarListaProd(){
 //Pedir Lista de productos
 pnodoProd listaDMenu::GetListaProd(){
 	pnodoMenu aux = primero;
-	return aux->listaProd->EntregarListaProd();
+	return aux->listaProd->GetPrimero();
 }
 //EntregaListaMenu
 pnodoMenu listaDMenu::EntregarListaMenu(){
@@ -225,7 +232,29 @@ void listaDMenu::BorrarInicio()
         }
 }
 
-
+int listaDMenu::buscarPos(int codigo){
+	if(ListaVacia()){
+		return -1;
+	}
+	else
+	{
+		pnodoMenu aux=primero;
+		int cont = 1;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			return cont;
+		}
+			else{
+			aux=aux->siguiente;
+			cont=cont+1;
+			}
+		}
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		return -1;
+	}
+}
 
 void listaDMenu:: BorrarPosicion(int pos)
 {

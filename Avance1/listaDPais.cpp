@@ -23,8 +23,13 @@ nodoLDPais(int codigo, string nombre,  nodoLDPais * signodo)
        listaCiudad = new listaDCiudad();
        siguiente = signodo;
     }
+    
+int getCodigo(){
+	return cod;
+}
 
- //  private:
+
+//private:
     int cod;
     string pais;
     listaDCiudad *listaCiudad = NULL;
@@ -53,16 +58,22 @@ class listaDPais {
     int largoLista();
 	void InsertarCiudad(int codigo, string nombre, listaDCiudad *listaC);
 	void MostrarListaCiudad();
-	pnodoCiudad GetListaCiudad();
+	listaDCiudad GetListaCiudad();
 	pnodoPais EntregarListaPais();
 	bool buscarPais(int codigo);
+	pnodoPais GetPrimero();
+	int buscarPos(int codigo);
 
 
 
 
-//   private:
+//	private:
     pnodoPais primero;
 };
+
+pnodoPais listaDPais::GetPrimero(){
+	return primero;
+}
 
 // Insertar Ciudad desde ListaPais
 void listaDPais::InsertarCiudad(int codigo, string nombre, listaDCiudad *listaC){
@@ -71,8 +82,9 @@ void listaDPais::InsertarCiudad(int codigo, string nombre, listaDCiudad *listaC)
 
 //Mostrar Lista de Ciudad
 void listaDPais::MostrarListaCiudad(){
-	pnodoPais aux = primero;
-	aux->listaCiudad->Mostrar();	
+	pnodoPais aux;
+	aux->listaCiudad->Mostrar();
+	
 }
 
 //Verifica si el pais se encuentra en la lista
@@ -98,11 +110,35 @@ bool listaDPais::buscarPais(int codigo){
 	}
 }
 
-//Pedir Lista de Ciudad
-pnodoCiudad listaDPais::GetListaCiudad(){
-	pnodoPais aux = primero;
-	return aux->listaCiudad->EntregarListaCiudad();
+int listaDPais::buscarPos(int codigo){
+	if(ListaVacia()){
+		return -1;
+	}
+	else
+	{
+		pnodoPais aux=primero;
+		int cont = 1;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
+			return cont;
+		}
+			else{
+			aux=aux->siguiente;
+			cont=cont+1;
+			}
+		}
+		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
+		return -1;
+	}
 }
+
+
+/*Pedir Lista de Ciudad
+listaDCiudad listaDPais::GetListaCiudad(){
+	return primero->listaCiudad;
+}*/
 
 //EntregaListaPais
 pnodoPais listaDPais::EntregarListaPais(){
@@ -294,6 +330,7 @@ void listaDPais:: BorrarPosicion(int pos)
       }//else
     }//else
 }
+
  
 
 void listaDPais::Mostrar()
