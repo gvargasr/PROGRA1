@@ -227,6 +227,7 @@ int listaDProducto::buscarPos(int codigo){
 		while(aux!=NULL)
 		{
 			if(aux->cod == codigo){
+				cout<<cont;
 			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
 			return cont;
 		}

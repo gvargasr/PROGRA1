@@ -445,21 +445,25 @@ void cargarArchivo::SubMenu23(){
 	cin >> codRest;
 	cout<< "\nIngrese el Nombre de restaurante: ";
 	cin >> rest;
-	pnodoPais aux = listaPais->GetPrimero();
+	pnodoPais aux = listaPais->primero;
 	if(listaPais->buscarPais(stoi(codPais))==true){
 		while(aux!=NULL){
 			if(aux->getCodigo() == stoi(codPais)){
-				pnodoCiudad aux2 = aux->listaCiudad->GetPrimero();
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
 					if(aux2->cod == stoi(codCiudad)){
-						aux->listaCiudad->InsertarRestaurante(stoi(codRest),rest, aux2->listaRestaurante);
+						aux2->listaRestaurante->InsertarFinal(stoi(codPais), rest);
+						return;
 					}
 					aux2= aux2->siguiente;
 				}
+			cout<<"CIUDAD NO EXISTE"<<endl;	
+			return;
 			}
 		aux=aux->siguiente;
 		}		
-	}	
+	}
+	cout<<"PAIS NO EXISTE"<<endl;	
 }
 
 void cargarArchivo::SubMenu24(){
@@ -649,6 +653,7 @@ void cargarArchivo::SubMenu32(){
 		while(aux!=NULL){
 			if(aux->cod == temp){
 				aux->listaCiudad->BorrarPosicion(aux->listaCiudad->buscarPos(temp2));
+				return;
 			}
 		aux=aux->siguiente;
 		}
@@ -677,16 +682,18 @@ void cargarArchivo::SubMenu33(){
 				while(aux2!=NULL){
 					if(aux2->cod == temp2){
 						aux2->listaRestaurante->BorrarPosicion(aux2->listaRestaurante->buscarPos(temp3));
+						return;
 					}
 					aux2= aux2->siguiente;
-				}
-			cout<<"CIUDAD NO EXISTE";
-			return;
+				}	
+			}else{
+				cout<<"CIUDAD NO EXISTE";
+				return;
 			}
 		aux=aux->siguiente;
-		}		
-	}
+		}	
 	cout<<"PAIS NO EXISTE";
+	}
 }
 
 
@@ -720,11 +727,10 @@ void cargarArchivo::SubMenu34(){
 									aux3=aux3->siguiente;
 								if(aux3->cod == temp3){
 								aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
+								return;
 								}
-								else{
-									cout<<"RESTAURANTE NO EXISTE";	
-									return;
-								}
+								cout<<"RESTAURANTE NO EXISTE";	
+								return;
 						}
 						aux2= aux2->siguiente;
 					}
@@ -733,7 +739,6 @@ void cargarArchivo::SubMenu34(){
 				}
 			aux=aux->siguiente;
 			}
-			
 		}
 	cout<<"PAIS NO EXISTE";
 }
@@ -755,48 +760,44 @@ void cargarArchivo::SubMenu35(){
 	cout<< "Ingrese el codigo de producto: ";
 	cin >> codProd;
 
-	int temp = stoi(codPais);
-	int temp2 = stoi(codCiudad);
-	int temp3 = stoi(codRest);
-	int temp4 = stoi(codMenu);
-	int temp5 = stoi(codProd);
-	pnodoPais aux = listaPais->primero;		
-	if(listaPais->buscarPais(temp)==true){
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(stoi(codPais))==true){
 		while(aux!=NULL){
-			if(aux->cod == temp){
+			if(aux->cod == stoi(codPais)){
 				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
-					if(aux2->cod == temp2){
+					if(aux2->cod == stoi(codCiudad)){
 						pnodoRest aux3 = aux2->listaRestaurante->primero;
 						pnodoRest head = aux2->listaRestaurante->primero;
-							while(aux3->siguiente!=head && aux3->cod!=temp3)
-								aux3=aux3->siguiente;
-							if(aux3->cod==temp3){
-								pnodoMenu aux4 = aux3->listaMenu->primero;
-								while(aux4!=NULL){
-									if(aux4->cod == temp4){
-									aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(temp5));
-									}else{
-									cout<<"MENU NO EXISTE";
-									return;
+							while(aux3->siguiente!=head && aux3->cod!=stoi(codRest)){
+								if(aux3->cod==stoi(codRest)){
+									pnodoMenu aux4 = aux3->listaMenu->primero;
+									while(aux4!=NULL){
+										if(aux4->cod == stoi(codMenu)){
+										aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(stoi(codProd)));
+										return;
+										}
+									aux4= aux4->siguiente;
 									}
-								aux4= aux4->siguiente;
-								}
+									cout<<"Menu";
+									return;
+								}else{
+								cout<<"restaurante";
+								return;	
+								}	
+							aux3=aux3->siguiente;
+							}	
 						}
-					cout<<"RESTAURANTE NO EXISTE";	
-					return;
-					}
 				aux2= aux2->siguiente;
 				}
-			cout<<"CIUDAD NO EXISTE";
-			return;
+				cout<<"ciudad";
+				return;
 			}
 		aux=aux->siguiente;
-		}
-				
+		}		
 	}
-	cout<<"PAIS NO EXISTE";
-
+	cout<<"pais";
+	return;
 }
 
 void cargarArchivo::SubMenu36(){
@@ -874,8 +875,11 @@ void cargarArchivo::Menu(){
 int main(){
 	cout<<"*************PROGRA #1************************"<<endl;
 	cout<<"\nIntegrantes:\nGustavo Vargas Ramirez   --- 200409141 \nGabriel Campos Gutierrez --- 2023093692"<<endl;
+	cout<<endl<<"*********************************************************************************"<<endl<<endl;	
 	cargarArchivo Inicio;
+//	Inicio.cargaInicial();
 	Inicio.Menu();
+
  
     cout<<"###########################################################"<<endl;
 	cout<<"################## PROGRAMA FINALIZADO ####################"<<endl;
