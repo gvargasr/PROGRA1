@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class cargarArchivo {
+class cargarArchivo { 
    public:
     cargarArchivo() {
 	 listaPais = new listaDPais();
