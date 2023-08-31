@@ -198,6 +198,7 @@ void listaDPais::InsertarFinal(int codigo, string nombre){
    {
    
      primero = new nodoLDPais(codigo, nombre);
+     cout<<"Pais agregado: "<<codigo<<":"<<nombre<<endl;
        
    }
    else{ 
@@ -205,9 +206,13 @@ void listaDPais::InsertarFinal(int codigo, string nombre){
         while ( aux->siguiente != NULL && aux->cod!=codigo)
           aux= aux->siguiente;
         if(aux->cod!=codigo){
-        aux->siguiente=new nodoLDPais(codigo, nombre);
-        aux->siguiente->anterior=aux;
-		}	
+        	aux->siguiente=new nodoLDPais(codigo, nombre);
+        	aux->siguiente->anterior=aux;
+       		cout<<"Pais agregado: "<<codigo<<":"<<nombre<<endl;
+		}
+		else{
+			cout<<"Codigo de pais ya se encuentra, no fue agregado"<<endl;	
+		}
 	}
 }
 
@@ -249,6 +254,7 @@ void listaDPais::BorrarFinal()
 		 {
         	pnodoPais temp=primero;
             primero= NULL;
+            cout<<"Pais eliminado: "<<temp->cod<<":"<<temp->pais<<endl;
             delete temp;
             } 
 			else 
@@ -259,8 +265,8 @@ void listaDPais::BorrarFinal()
                 {
                     aux = aux->siguiente;
                 }
-                
               pnodoPais temp = aux->siguiente;
+              cout<<"Pais eliminado: "<<temp->cod<<":"<<temp->pais<<endl;                
               aux->siguiente= NULL;
                       
                 delete temp;
@@ -275,8 +281,10 @@ void listaDPais::BorrarInicio()
     
    }else{
         if (primero->siguiente == NULL) {
+
             pnodoPais temp=primero;
             primero= NULL;
+        	cout<<"Pais eliminado: "<<temp->cod<<":"<<temp->pais<<endl;
             delete temp;
             } 
 			else
@@ -284,7 +292,8 @@ void listaDPais::BorrarInicio()
 
                 pnodoPais aux = primero;
                 primero=primero->siguiente;   
-				primero->anterior=NULL;            
+				primero->anterior=NULL;     
+        		cout<<"Pais eliminado: "<<aux->cod<<":"<<aux->pais<<endl;       
                 delete aux;
             }
         }
@@ -296,13 +305,13 @@ void listaDPais:: BorrarPosicion(int pos)
 {
      if(ListaVacia())
      {
-              cout << "Lista vacia" <<endl;
+              cout << "No hay paises para borrar" <<endl;
      }
      else
      {
         if((pos>largoLista())||(pos<0))//no validas
         {
-        cout << "Error en posicion" << endl;
+        cout << "Pais no se encuentra en la lista" << endl;
         }
         else
         {
@@ -324,6 +333,7 @@ void listaDPais:: BorrarPosicion(int pos)
             pnodoPais temp=aux->siguiente;
             aux->siguiente=aux->siguiente->siguiente;
             aux->siguiente->anterior=aux;
+            cout<<"Pais eliminado: "<<temp->cod<<":"<<temp->pais<<endl;                
             delete temp;
           }//else
         }//else

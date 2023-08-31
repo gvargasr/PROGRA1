@@ -171,6 +171,7 @@ void listaDCiudad::InsertarFinal(int codigo, string nombre){
    {
    
      primero = new nodoLDCiudad(codigo, nombre);
+     cout<<"Ciudad agregada: "<<codigo<<":"<<nombre<<endl;
        
    }
    else{ 
@@ -178,9 +179,13 @@ void listaDCiudad::InsertarFinal(int codigo, string nombre){
         while ( aux->siguiente != NULL && aux->cod!=codigo)
           aux= aux->siguiente;
         if(aux->cod!=codigo){
-        aux->siguiente=new nodoLDCiudad(codigo, nombre);
-        aux->siguiente->anterior=aux;
-		}	
+      		aux->siguiente=new nodoLDCiudad(codigo, nombre);
+        	aux->siguiente->anterior=aux;
+        	cout<<"Ciudad agregada: "<<codigo<<":"<<nombre<<endl;
+		}
+		else{
+		cout<<"Codigo de ciudad ya se encuentra, no fue agregada"<<endl;	
+		}
 	}
 }
 
@@ -223,6 +228,7 @@ void listaDCiudad::BorrarFinal()
 		 {
         	pnodoCiudad temp=primero;
             primero= NULL;
+        	cout<<"Ciudad eliminada: "<<temp->cod<<":"<<temp->ciudad<<endl;
             delete temp;
             } 
 			else 
@@ -234,8 +240,9 @@ void listaDCiudad::BorrarFinal()
                     aux = aux->siguiente;
                 }
                 
-              pnodoCiudad temp = aux->siguiente;
-              aux->siguiente= NULL;
+            	pnodoCiudad temp = aux->siguiente;
+            	cout<<"Ciudad eliminada: "<<temp->cod<<":"<<temp->ciudad<<endl;
+            	aux->siguiente= NULL;
                       
                 delete temp;
             }
@@ -251,15 +258,17 @@ void listaDCiudad::BorrarInicio()
         if (primero->siguiente == NULL) {
             pnodoCiudad temp=primero;
             primero= NULL;
+            cout<<"Ciudad eliminada: "<<temp->cod<<":"<<temp->ciudad<<endl;
             delete temp;
             } 
 			else
 			{
 
-                pnodoCiudad aux = primero;
-                primero=primero->siguiente;   
-				primero->anterior=NULL;            
-                delete aux;
+            pnodoCiudad aux = primero;
+            primero=primero->siguiente;   
+			primero->anterior=NULL; 
+		    cout<<"Ciudad eliminada: "<<aux->cod<<":"<<aux->ciudad<<endl;           
+            delete aux;
             }
         }
 }
@@ -292,13 +301,13 @@ void listaDCiudad:: BorrarPosicion(int pos)
 {
      if(ListaVacia())
      {
-              cout << "Lista vacia" <<endl;
+              cout << "Aun no hay ciudades registrados." <<endl;
      }
      else
      {
         if((pos>largoLista())||(pos<0))//no validas
         {
-        cout << "Pais no esta " << endl;
+        cout << "Ciudad no se encuentra." << endl;
         }
         else
         {
@@ -320,6 +329,7 @@ void listaDCiudad:: BorrarPosicion(int pos)
             pnodoCiudad temp=aux->siguiente;
             aux->siguiente=aux->siguiente->siguiente;
             aux->siguiente->anterior=aux;
+            cout<<"Ciudad eliminada: "<<temp->cod<<":"<<temp->ciudad<<endl;
             delete temp;
           }//else
         }//else

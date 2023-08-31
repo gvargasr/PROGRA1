@@ -111,9 +111,10 @@ void listaClientes::InsertarInicio(int v, string n)//3 10 265
  
 void listaClientes::InsertarFinal(int v, string n)//76
 {
-    if (ListaVacia())
-     primero = new nodo(v, n);
-     
+    if (ListaVacia()){
+    primero = new nodo(v, n);
+    cout<<"Cliente agregado: "<<v<<":"<<n<<endl; 	
+	}
     else{ 
 		pnodo aux = primero;	  
         while ( aux->siguiente != NULL && aux->valor!=v)
@@ -121,8 +122,12 @@ void listaClientes::InsertarFinal(int v, string n)//76
     	if(aux->valor!=v){
         	pnodo nuevo=new nodo(v, n);
         	aux->siguiente=nuevo;
-			}	
+   	     	cout<<"Cliente agregado: "<<v<<":"<<n<<endl; 
 		}
+		else{
+			cout<<"Cedula de cliente ya se encuentra, no fue agregado"<<endl;	
+		}	
+	}
 }
 
 
@@ -232,16 +237,17 @@ int listaClientes::buscarPos(int codigo){
 
 void listaClientes:: borrarPosicion(int pos){
      if(ListaVacia()){
-              cout << "Lista vacia" <<endl;
+              cout << "Aun no hay clientes registrados." <<endl;
     }else{
          if((pos>largoLista())||(pos<0)){
-        cout << "Error en posicion" << endl;
+        cout << "Cliente no se encuentra." << endl;
         }else{
         if(pos==1)
 		{
         	pnodo temp=primero;
         	primero=primero->siguiente;
-        	delete temp; //BorrarInicio();
+        	cout << "Cliente borrado: "<<temp->valor<<":"<<temp->nombre<< endl;
+        	delete temp; 
         }
 		else{
           int cont=2;
@@ -252,6 +258,7 @@ void listaClientes:: borrarPosicion(int pos){
             }
             pnodo temp=aux->siguiente;
             aux->siguiente=aux->siguiente->siguiente;
+            cout << "Cliente borrado: "<<temp->valor<<":"<<temp->nombre<< endl;
             delete temp;
             }
         }

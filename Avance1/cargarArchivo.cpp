@@ -18,6 +18,8 @@ class cargarArchivo {
     void Menu();
     void cargaInicial();
     void EliminarPais(int codigo);
+    void MostrarTodo();
+
     void SubMenu1();
 	void SubMenu2();
 	void SubMenu21();
@@ -65,6 +67,8 @@ void cargarArchivo::cargaInicial(){
 		listaPais->InsertarFinal(stoi(codigo),pais);
 	}
 	archivo.close();
+	cout<<endl<<"*********************************************************************************"<<endl<<endl;
+
 
 	archivo.open("Archivos/Ciudades.txt");
 	while(!archivo.eof()){
@@ -84,9 +88,10 @@ void cargarArchivo::cargaInicial(){
 				}
 			aux=aux->siguiente;
 			}
-		}			
+		}
 	}
 	archivo.close();
+	cout<<endl<<"*********************************************************************************"<<endl<<endl;			
 
 
  	archivo.open("Archivos/Restaurantes.txt");
@@ -120,6 +125,8 @@ void cargarArchivo::cargaInicial(){
 		}
 	}
 	archivo.close();	
+	cout<<endl<<"*********************************************************************************"<<endl<<endl;
+
 
  	archivo.open("Archivos/Menu.txt");
  		while(!archivo.eof()){
@@ -156,12 +163,11 @@ void cargarArchivo::cargaInicial(){
 					}
 				}
 			aux=aux->siguiente;
-			}
-			
+			}		
 		}
 	}
  	archivo.close();
-	
+	cout<<endl<<"*********************************************************************************"<<endl<<endl;
 
  	archivo.open("Archivos/Productos.txt");
  		while(!archivo.eof()){
@@ -216,12 +222,11 @@ void cargarArchivo::cargaInicial(){
 					}
 				}
 			aux=aux->siguiente;
-			}
-			
+			}		
 		}
 	}
  	archivo.close();
-
+	cout<<endl<<"*********************************************************************************"<<endl<<endl;
 	
 	archivo.open("Archivos/Clientes.txt");
 	while(!archivo.eof()){
@@ -233,17 +238,42 @@ void cargarArchivo::cargaInicial(){
 		listaCliente->InsertarFinal(temp,nombre);
 	}
 	archivo.close();
-	
+	cout<<endl<<"*********************************************************************************"<<endl<<endl;	
 }
 
 
 void cargarArchivo::EliminarPais(int codigo){
 	listaPais->BorrarPosicion(listaPais->buscarPos(codigo));
 }
+/*
+// Mostrar Todo:
+	
+void cargarArchivo::MostrarTodo(){
+	pnodoPais aux = listaPais->primero;
+	while(aux!=NULL){
+		cout<<"Pais "<<endl;
+		cout<<aux->getCodigo()<<":"<<aux->pais<<endl;
+		pnodoCiudad aux2 = aux->listaCiudad->primero;	
+			while(aux2!=NULL){
+				cout<<"Ciudad"<<endl;
+				cout<<aux2->cod<<":"<<aux2->ciudad<<endl;
+				pnodoRest aux3 = aux2->listaRestaurante->primero;
+				pnodoRest temp = aux2->listaRestaurante->primero;
+				while(aux3!=temp){
+					
+				}
+				aux2 = aux2->siguiente;
+			}
+		aux = aux->siguiente;	
+		}
+	
+	}
+*/
 
 
+/*
+int main(){
 
-/*int main(){
 	cargarArchivo Inicio;
 	Inicio.cargaInicial();
 	Inicio.listaPais->Mostrar();
@@ -277,9 +307,9 @@ void cargarArchivo::EliminarPais(int codigo){
 	cout<<endl<<endl;
 	cout<<"Lista de Clientes"<<endl;
 	Inicio.listaCliente->Mostrar();
-
 }
 */
+
 
 void cargarArchivo::SubMenu1(){
 		cout << endl << "----------------------------" << endl;
@@ -289,13 +319,13 @@ void cargarArchivo::SubMenu1(){
 		cout << "1. Cargar Archivos"<<endl;
 		cout << "2. Volver"<<endl;
 		cout <<endl<<endl;
-		cout <<"Seleccione una opcion: "<<endl;		
+		cout <<"Seleccione una opcion: ";		
 		char opt;
 		cin >> opt;
 		
 	switch(opt) {
 		case '1':{
-			cout<<"Cargando archivos... "<<endl;
+			cout<<"Cargando archivos... "<<endl<<endl;
 			cargaInicial();
 			cout<<"."<<endl;
 			cout<<"."<<endl;
@@ -330,7 +360,7 @@ void cargarArchivo::SubMenu2(){
 		cout << "6. Cliente"<<endl;
 		cout << "7. Volver"<<endl;
 		cout <<endl<<endl;
-		cout <<"Seleccione una opcion: "<<endl;		
+		cout <<"Seleccione una opcion: ";		
 		char opt;
 		cin >> opt;
 		
@@ -365,7 +395,7 @@ void cargarArchivo::SubMenu2(){
 			break;	
 	default:
 		cout<<"!!! Valor incorrecto, ingresar un valor dentro del rango !!!"<<endl;
-		SubMenu1();
+		SubMenu2();
 	}
 }
 
@@ -377,7 +407,6 @@ void cargarArchivo::SubMenu21(){
 	cout<< "\nIngrese el Nombre de pais: ";
 	cin >> nombre;
 	listaPais->InsertarFinal(stoi(cod), nombre);
-	listaPais->Mostrar();
 	
 }
 
@@ -460,7 +489,7 @@ void cargarArchivo::SubMenu24(){
 						pnodoRest head = aux2->listaRestaurante->primero;
 							while(aux3->siguiente!=head && aux3->cod!=stoi(codRest))
 								aux3=aux3->siguiente;
-							if(aux3->siguiente==head);
+							if(aux3->cod=!stoi(codRest)); //////Modifique el valor aqui
 							aux2->listaRestaurante->InsertarMenu(stoi(codMenu),menu,aux3->listaMenu);
 					}
 					aux2= aux2->siguiente;
@@ -535,7 +564,6 @@ void cargarArchivo::SubMenu26(){
 	cout<< "\nIngrese el nombre del cliente: ";
 	cin >> nombre;
 	listaCliente->InsertarFinal(stoi(cedula),nombre);
-	listaCliente->Mostrar();
 }
 
 
@@ -560,33 +588,37 @@ void cargarArchivo::SubMenu3(){
 		cin >> opt;
 	switch(opt){
 		case '1':{
-			cout<< "Eliminar Pais"<<endl;
+			cout<< "3.1 Eliminar Pais"<<endl;
 			SubMenu31();
 			break;
 		}
 		case '2':{
-			cout<< "Eliminar Ciudad"<<endl;
+			cout<< "3.2 Eliminar Ciudad"<<endl;
 			SubMenu32();			
 			break;
 		}
 		case '3':{
-			cout<< "Eliminar Restaurante"<<endl;
+			cout<< "3.3 Eliminar Restaurante"<<endl;
 			SubMenu33();
 			break;
 		}
 		case '4':{
-			cout<< "Eliminar Menu"<<endl;
+			cout<< "3.4 Eliminar Menu"<<endl;
 			SubMenu34();
 			break;
 		}
 		case '5':{
-			cout<< "Eliminar Producto"<<endl;
+			cout<< "3.5 Eliminar Producto"<<endl;
 			SubMenu35();
 			break;
 		}
 		case '6':{
-			cout<< "Eliminar Cliente"<<endl;
+			cout<< "3.6 Eliminar Cliente"<<endl;
 			SubMenu36();
+			break;
+		}
+		case '7':{
+			cout<<"Volviendo a Main Menu"<<endl;			
 			break;
 		}
 		default :{
@@ -600,9 +632,7 @@ void cargarArchivo::SubMenu31(){
 	string cod;
 	cout<< "Ingrese el codigo de pais: ";
 	cin >> cod;
-	listaPais->Mostrar();
 	listaPais->BorrarPosicion(listaPais->buscarPos(stoi(cod)));
-	listaPais->Mostrar();
 }
 
 void cargarArchivo::SubMenu32(){
@@ -729,21 +759,31 @@ void cargarArchivo::SubMenu35(){
 						pnodoRest head = aux2->listaRestaurante->primero;
 							while(aux3->siguiente!=head && aux3->cod!=temp3)
 								aux3=aux3->siguiente;
-							if(aux3->cod==temp3);
+							if(aux3->cod==temp3){
 								pnodoMenu aux4 = aux3->listaMenu->primero;
 								while(aux4!=NULL){
 									if(aux4->cod == temp4){
 									aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(temp5));
+									}else{
+									cout<<"MENU NO EXISTE";
+									return;
 									}
 								aux4= aux4->siguiente;
-								}							
+								}
+						}
+					cout<<"RESTAURANTE NO EXISTE";	
+					return;
 					}
 				aux2= aux2->siguiente;
 				}
+			cout<<"CIUDAD NO EXISTE";
+			return;
 			}
 		aux=aux->siguiente;
-		}		
+		}
+				
 	}
+	cout<<"PAIS NO EXISTE";
 
 }
 
@@ -756,13 +796,10 @@ void cargarArchivo::SubMenu36(){
 }
 
 
-/* TODO (guvargas#1#): Terminar el menu y las opciones */
-
-
 void cargarArchivo::Menu(){
 	while(true){
 	    cout << endl << "----------------------------" << endl;
-        cout << endl << "      Main Menu   " << endl;
+        cout << endl << "      Menu Principal  " << endl;
         cout << endl << "----------------------------" << endl;
 		cout << endl;
 		cout << "1. Leer Archivos"<<endl;
@@ -774,43 +811,43 @@ void cargarArchivo::Menu(){
 		cout << "7. Info"<<endl;
 		cout << "8. Salir"<<endl;
 		cout <<endl<<endl;
-		cout <<"Seleccione una opcion: "<<endl;
+		cout <<"Seleccione una opcion: ";
 		
 		char opt;
 		cin >> opt;
     
     switch(opt) {
     	case '1' : 
-			cout<<"Ingresando a Submenu 1...";
 			SubMenu1();
-			
 			Menu();
 			break;
     	case '2':
-    		cout<<"Ingresando a Submenu 2...";
     		SubMenu2();
     		Menu();
     		break;
     	case '3':{
-    		cout<<"Ingresando a Submenu 3...";
     		SubMenu3();
     		Menu();
 			break;
 		}
- /*   	case '4':
+    	case '4':
     		cout<<"Ingresando a Submenu 4...";
+    		Menu();
     		break;
     	case '5':
     		cout<<"Ingresando a Submenu 5...";
-    		break;
+    		Menu();
+			break;
 		case '6':
     		cout<<"Ingresando a Submenu 6...";
-    		break;
+    		Menu();
+			break;
 		case '7':
-    		cout<<"Ingresando a Submenu 7...";
-    		break;*/
+    		cout<<"Ingresando a Submenu 7..."<<endl;
+    		Menu();
+			break;
 		case '8':
-    		cout<<endl<<endl<<endl<<"##################      Good Bye!!     ####################";
+    		cout<<endl<<endl<<endl<<"##################      Good Bye!!     ####################"<<endl;
     		break;
 			exit(1);		
     default: 
@@ -823,18 +860,15 @@ void cargarArchivo::Menu(){
 
 
 int main(){
-		cout<<"*************PROGRA #1************************"<<endl<<endl<<endl;
-//		cout<<"\nIntegrantes:\nGustavo Vargas Ramirez   --- 200409141 \nGabriel Campos Gutierrez --- 2023093692"<<endl;
+	cout<<"*************PROGRA #1************************"<<endl;
+	cout<<"\nIntegrantes:\nGustavo Vargas Ramirez   --- 200409141 \nGabriel Campos Gutierrez --- 2023093692"<<endl;
 	cargarArchivo Inicio;
 	Inicio.Menu();
-    cout<<endl<<endl<<endl;
-    cout<<"###########################################################"<<endl;
-    cout<<"###########################################################"<<endl;
+ 
     cout<<"###########################################################"<<endl;
 	cout<<"################## PROGRAMA FINALIZADO ####################"<<endl;
 	cout<<"###########################################################"<<endl;
-	cout<<"###########################################################"<<endl;
-	cout<<"###########################################################"<<endl;
+
 	return 0;
 }
 
@@ -842,5 +876,7 @@ int main(){
 
 
 
+
+/* TODO (#1#): prevenir lineas en blanco al leer archivos */
 
 

@@ -113,7 +113,7 @@ int listaDMenu::largoLista(){
     }else{
         while(aux!=NULL){
         aux=aux->siguiente;
-        cont++;
+        cont=cont + 1;
     }
     return cont;
     }
@@ -136,20 +136,23 @@ void listaDMenu::InsertarInicio(int codigo, string nombre)
 }
 
 void listaDMenu::InsertarFinal(int codigo, string nombre){
-   if (ListaVacia())
-   {
-   
-     primero = new nodoLDMenu(codigo, nombre);
-       
+   if (ListaVacia()){
+   		primero = new nodoLDMenu(codigo, nombre);
+		cout<<"Menu agregado: "<<codigo<<":"<<nombre<<endl;    
    }
    else{ 
 		pnodoMenu aux = primero;	  
         while ( aux->siguiente != NULL && aux->cod!=codigo)
-          aux= aux->siguiente;
-        if(aux->cod!=codigo){
-        aux->siguiente=new nodoLDMenu(codigo, nombre);
-        aux->siguiente->anterior=aux;
-		}	
+        	aux= aux->siguiente;
+      	    if(aux->cod!=codigo){
+        	aux->siguiente=new nodoLDMenu(codigo, nombre);
+        	aux->siguiente->anterior=aux;
+		   	cout<<"Menu agregado: "<<codigo<<":"<<nombre<<endl;
+
+		}
+		else{
+		cout<<"Codigo de menu ya se encuentra, no fue agregado"<<endl;	
+		}
 	}
 }
 
@@ -191,6 +194,7 @@ void listaDMenu::BorrarFinal()
 		 {
         	pnodoMenu temp=primero;
             primero= NULL;
+            cout << "Menu borrado: "<<temp->cod<<":"<<temp->nomMenu<< endl;
             delete temp;
             } 
 			else 
@@ -202,9 +206,9 @@ void listaDMenu::BorrarFinal()
                     aux = aux->siguiente;
                 }
                 
-              pnodoMenu temp = aux->siguiente;
-              aux->siguiente= NULL;
-                      
+              	pnodoMenu temp = aux->siguiente;
+              	aux->siguiente= NULL;
+             	cout << "Menu borrado: "<<temp->cod<<":"<<temp->nomMenu<< endl;
                 delete temp;
             }
         }
@@ -219,6 +223,7 @@ void listaDMenu::BorrarInicio()
         if (primero->siguiente == NULL) {
             pnodoMenu temp=primero;
             primero= NULL;
+            cout << "Menu borrado: "<<temp->cod<<":"<<temp->nomMenu<< endl;
             delete temp;
             } 
 			else
@@ -226,7 +231,8 @@ void listaDMenu::BorrarInicio()
 
                 pnodoMenu aux = primero;
                 primero=primero->siguiente;   
-				primero->anterior=NULL;            
+				primero->anterior=NULL;
+	            cout << "Menu borrado: "<<aux->cod<<":"<<aux->nomMenu<< endl;            
                 delete aux;
             }
         }
@@ -260,13 +266,13 @@ void listaDMenu:: BorrarPosicion(int pos)
 {
      if(ListaVacia())
      {
-              cout << "Lista vacia" <<endl;
+              cout << "Aun no hay menus registrados." <<endl;
      }
      else
      {
         if((pos>largoLista())||(pos<0))//no validas
         {
-        cout << "Error en posicion" << endl;
+        cout << "Menu no se encuentra." << endl;
         }
         else
         {
@@ -288,6 +294,7 @@ void listaDMenu:: BorrarPosicion(int pos)
             pnodoMenu temp=aux->siguiente;
             aux->siguiente=aux->siguiente->siguiente;
             aux->siguiente->anterior=aux;
+            cout << "Menu borrado: "<<temp->cod<<":"<<temp->nomMenu<< endl;
             delete temp;
           }//else
         }//else

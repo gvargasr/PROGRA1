@@ -156,26 +156,29 @@ void listaDCRest::InsertarInicio(int codigo, string nombre)
  
 void listaDCRest::InsertarFinal(int codigo, string nombre)
 {
-   if (ListaVacia())
-     {
-     primero = new nodoLDCRest(codigo, nombre);
-     primero->anterior=primero;
-     primero->siguiente=primero;
+   if (ListaVacia()){
+    primero = new nodoLDCRest(codigo, nombre);
+    primero->anterior=primero;
+    primero->siguiente=primero;
+   	cout<<"Restaurante agregado: "<<codigo<<":"<<nombre<<endl;
    }  
    else{
      pnodoRest aux = primero;
      	while ( aux->siguiente != primero && aux->cod!=codigo)
      		aux=aux->siguiente;
-     	if(aux->cod!=codigo){
-     		aux=aux->siguiente;
-			pnodoRest nuevo = new nodoLDCRest(codigo, nombre);//1
-   			nuevo->anterior = primero->anterior;//2
-   			/*nuevo->siguiente=primero->anterior->siguiente;opcion para intruccion 3*/
-			nuevo->siguiente=primero;// coloca alguna de la dos 3
-  			primero->anterior->siguiente=nuevo;//4
- 			primero->anterior=nuevo;//5	
-			}
-    	}    
+     	if(aux->cod==codigo){
+     		cout<<"Codigo de restaurante ya se encuentra, no fue agregado"<<endl;	
+		}
+		else{
+			aux=aux->siguiente;
+			pnodoRest nuevo = new nodoLDCRest(codigo, nombre);
+   			nuevo->anterior = primero->anterior;
+			nuevo->siguiente=primero;
+  			primero->anterior->siguiente=nuevo;
+ 			primero->anterior=nuevo;
+		   	cout<<"Restaurante agregado: "<<codigo<<":"<<nombre<<endl;
+		}
+    }    
 }
 
 
@@ -250,6 +253,7 @@ void listaDCRest::BorrarInicio()
      {
         pnodoRest temp= primero;
         primero= NULL;
+        cout << "Restaurante borrado: "<<temp->cod<<":"<<temp->rest<< endl;
         delete temp;
      }
      else
@@ -259,6 +263,7 @@ void listaDCRest::BorrarInicio()
         aux->siguiente=primero->siguiente;//3
         primero=primero->siguiente; //4
         primero->anterior=aux;//5
+        cout << "Restaurante borrado: "<<temp->cod<<":"<<temp->rest<< endl;
         delete temp;//6
       }
     }
@@ -266,27 +271,34 @@ void listaDCRest::BorrarInicio()
 
 
 int listaDCRest::buscarPos(int codigo){
+	cout<<codigo<<endl;
 	if(ListaVacia()){
 		return -1;
+		cout<<"cae en A";
 	}
 	else
 	{
 		pnodoRest aux=primero;
+		cout<<aux->cod<<":"<<aux->rest<<endl;
 		int cont = 1;
 		while(aux->siguiente!=primero)
 		{
 			if(aux->cod == codigo){
 			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
 			return cont;
+			cout<<"cae en B";
 		}
 			else{
 			aux=aux->siguiente;
 			cont=cont+1;
 			}
 		}
-		if(aux->cod == codigo)
+		if(aux->cod == codigo){
+			cout<<"cae en C";
 			return cont;
+		}
 		else{
+		cout<<"cae en D";
 		return -1;
 		}
 		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
@@ -295,9 +307,9 @@ int listaDCRest::buscarPos(int codigo){
 }
 void listaDCRest:: BorrarPosicion(int pos)
 {
-    
+  cout<<pos;  
   if(ListaVacia())
-    cout << "Lista vacia" <<endl;
+    cout << "Aun no hay restaurantes registrados." <<endl;
   else
   {
    if((pos==1))
@@ -311,7 +323,8 @@ void listaDCRest:: BorrarPosicion(int pos)
    {
     if(pos>largoLista()||(pos<=0))
     {
-       cout << "Error en posicion" << endl;
+       cout << "Restaurante no se encuentra." << endl;
+       Mostrar();
 	}
         
     else
@@ -323,9 +336,10 @@ void listaDCRest:: BorrarPosicion(int pos)
          aux=aux->siguiente;
          cont++;
        }
-       pnodoRest temp = aux->siguiente;
-       aux->siguiente=aux->siguiente->siguiente;
-       aux->siguiente->anterior=aux;
+        pnodoRest temp = aux->siguiente;
+       	aux->siguiente=aux->siguiente->siguiente;
+       	aux->siguiente->anterior=aux;
+        cout << "Restaurante borrado: "<<temp->cod<<":"<<temp->rest<< endl;
        delete temp;
      }
     }

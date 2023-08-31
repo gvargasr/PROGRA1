@@ -115,19 +115,21 @@ void listaDProducto::InsertarInicio(int codigo, string nombre, int kcal, int pre
 
 
 void listaDProducto::InsertarFinal(int codigo, string nombre,int kcal, int precio){
-   if (ListaVacia())
-   {
-   
-     primero = new nodoLDProducto(codigo, nombre, kcal, precio);
-       
+   if (ListaVacia()){
+    	primero = new nodoLDProducto(codigo, nombre, kcal, precio);
+     	cout<<"Producto agregado: "<<codigo<<":"<<nombre<<":"<<kcal<<":"<<precio<<endl;
    }
    else{ 
 		pnodoProd aux = primero;	  
         while ( aux->siguiente != NULL && aux->cod!=codigo)
-          aux= aux->siguiente;
+        aux= aux->siguiente;
         if(aux->cod!=codigo){
-        aux->siguiente=new nodoLDProducto(codigo, nombre, kcal, precio);
-        aux->siguiente->anterior=aux;
+        	aux->siguiente=new nodoLDProducto(codigo, nombre, kcal, precio);
+        	aux->siguiente->anterior=aux;
+			cout<<"Producto agregado: "<<codigo<<":"<<nombre<<":"<<kcal<<":"<<precio<<endl;
+		}
+		else{
+		cout<<"Codigo de producto ya se encuentra, no fue agregado"<<endl;	
 		}	
 	}
 }
@@ -170,6 +172,7 @@ void listaDProducto::BorrarFinal()
 		 {
         	pnodoProd temp=primero;
             primero= NULL;
+            cout << "Producto borrado: "<<temp->cod<<":"<<temp->nomProd<< endl;
             delete temp;
             } 
 			else 
@@ -181,9 +184,9 @@ void listaDProducto::BorrarFinal()
                     aux = aux->siguiente;
                 }
                 
-              pnodoProd temp = aux->siguiente;
-              aux->siguiente= NULL;
-                      
+              	pnodoProd temp = aux->siguiente;
+                cout << "Producto borrado: "<<aux->cod<<":"<<aux->nomProd<< endl;            
+                aux->siguiente= NULL;      
                 delete temp;
             }
         }
@@ -198,6 +201,7 @@ void listaDProducto::BorrarInicio()
         if (primero->siguiente == NULL) {
             pnodoProd temp=primero;
             primero= NULL;
+            cout << "Producto borrado: "<<temp->cod<<":"<<temp->nomProd<< endl;
             delete temp;
             } 
 			else
@@ -205,7 +209,8 @@ void listaDProducto::BorrarInicio()
 
                 pnodoProd aux = primero;
                 primero=primero->siguiente;   
-				primero->anterior=NULL;            
+				primero->anterior=NULL;
+				cout << "Producto borrado: "<<aux->cod<<":"<<aux->nomProd<< endl;            
                 delete aux;
             }
         }
@@ -239,13 +244,13 @@ void listaDProducto:: BorrarPosicion(int pos)
 {
      if(ListaVacia())
      {
-              cout << "Lista vacia" <<endl;
+              cout << "Aun no hay productos registrados." <<endl;
      }
      else
      {
         if((pos>largoLista())||(pos<0))//no validas
         {
-        cout << "Error en posicion" << endl;
+        cout << "Producto no se encuentra." << endl;
         }
         else
         {
@@ -267,6 +272,7 @@ void listaDProducto:: BorrarPosicion(int pos)
             pnodoProd temp=aux->siguiente;
             aux->siguiente=aux->siguiente->siguiente;
             aux->siguiente->anterior=aux;
+            cout << "Producto borrado: "<<temp->cod<<":"<<temp->nomProd<< endl;
             delete temp;
           }//else
         }//else
