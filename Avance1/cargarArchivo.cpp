@@ -653,6 +653,7 @@ void cargarArchivo::SubMenu32(){
 		aux=aux->siguiente;
 		}
 	}
+	cout<<"PAIS NO EXISTE";
 }
 
 void cargarArchivo::SubMenu33(){
@@ -679,10 +680,13 @@ void cargarArchivo::SubMenu33(){
 					}
 					aux2= aux2->siguiente;
 				}
+			cout<<"CIUDAD NO EXISTE";
+			return;
 			}
 		aux=aux->siguiente;
 		}		
 	}
+	cout<<"PAIS NO EXISTE";
 }
 
 
@@ -714,16 +718,24 @@ void cargarArchivo::SubMenu34(){
 							pnodoRest head = aux2->listaRestaurante->primero;
 								while(aux3->siguiente!=head && aux3->cod!=temp3)
 									aux3=aux3->siguiente;
-								if(aux3->cod == temp3);
+								if(aux3->cod == temp3){
 								aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
+								}
+								else{
+									cout<<"RESTAURANTE NO EXISTE";	
+									return;
+								}
 						}
 						aux2= aux2->siguiente;
 					}
+				cout<<"CIUDAD NO EXISTE";
+				return;
 				}
 			aux=aux->siguiente;
 			}
 			
 		}
+	cout<<"PAIS NO EXISTE";
 }
 
 void cargarArchivo::SubMenu35(){
