@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class nodoLDPais {
+class nodoLDPais { 
    public:
     nodoLDPais(int codigo, string nombre)
     {

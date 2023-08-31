@@ -5,7 +5,7 @@
 using namespace std;
 
 class nodoLDCRest {
-   public:
+   public: 
     nodoLDCRest(int codigo, string nombre)
     {
        cod = codigo;

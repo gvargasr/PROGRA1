@@ -6,7 +6,7 @@
 using namespace std;
 
 class nodoLDCiudad {
-   public:
+   public: 
     nodoLDCiudad(int codigo, string nombre)
     {
        cod = codigo;
