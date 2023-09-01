@@ -484,27 +484,31 @@ void cargarArchivo::SubMenu24(){
 	cin >> codMenu;
 	cout<< "\nIngrese el Nombre de menu: ";
 	cin >> menu;
-	pnodoPais aux = listaPais->GetPrimero();
-	if(listaPais->buscarPais(stoi(codPais))==true){
+	pnodoPais aux = listaPais->primero;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	if(listaPais->buscarPais(temp)==true){
 		while(aux!=NULL){
-			if(aux->cod == stoi(codPais)){
+			if(aux->cod == temp){
 				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
-					if(aux2->cod == stoi(codCiudad)){
+					if(aux2->cod == temp2){
 						pnodoRest aux3 = aux2->listaRestaurante->primero;
 						pnodoRest head = aux2->listaRestaurante->primero;
-							while(aux3->siguiente!=head && aux3->cod!=stoi(codRest))
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
 								aux3=aux3->siguiente;
-							if(aux3->cod=!stoi(codRest)); //////Modifique el valor aqui
-							aux2->listaRestaurante->InsertarMenu(stoi(codMenu),menu,aux3->listaMenu);
+							if(aux3->siguiente==head);
+							aux3->listaMenu->InsertarFinal(temp4,menu);
 					}
 					aux2= aux2->siguiente;
 				}
 			}
 		aux=aux->siguiente;
-		}			
-	}	
-}
+		}		
+	}
+}				
 
 
 void cargarArchivo::SubMenu25(){
@@ -712,37 +716,37 @@ void cargarArchivo::SubMenu34(){
 	string codMenu;
 	cout<< "Ingrese el codigo menu: ";
 	cin >> codMenu;
-		pnodoPais aux = listaPais->primero;
-		int temp = stoi(codPais);
-		int temp2 = stoi(codCiudad);
-		int temp3 = stoi(codRest);
-		int temp4 = stoi(codMenu);
-		if(listaPais->buscarPais(temp)==true){
-			while(aux!=NULL){
-				if(aux->cod == temp){
-					pnodoCiudad aux2 = aux->listaCiudad->primero;
-					while(aux2!=NULL){
-						if(aux2->cod == temp2){
-							pnodoRest aux3 = aux2->listaRestaurante->primero;
-							pnodoRest head = aux2->listaRestaurante->primero;
-								while(aux3->siguiente!=head && aux3->cod!=temp3)
-									aux3=aux3->siguiente;
-								if(aux3->cod == temp3){
-								aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
-								return;
-								}
-								cout<<"RESTAURANTE NO EXISTE";	
-								return;
-						}
-						aux2= aux2->siguiente;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						pnodoRest aux3 = aux2->listaRestaurante->primero;
+						pnodoRest head = aux2->listaRestaurante->primero;
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod == temp3){
+							aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
+							return;
+							}
+							cout<<"RESTAURANTE NO EXISTE/eliminar menu";	
+							return;
 					}
-				cout<<"CIUDAD NO EXISTE";
-				return;
+					aux2= aux2->siguiente;
 				}
-			aux=aux->siguiente;
+			cout<<"CIUDAD NO EXISTE/eliminar menu";
+			return;
 			}
+		aux=aux->siguiente;
 		}
-	cout<<"PAIS NO EXISTE";
+	}
+	cout<<"PAIS NO EXISTE/eliminar menu";
 }
 
 void cargarArchivo::SubMenu35(){
@@ -761,48 +765,47 @@ void cargarArchivo::SubMenu35(){
 	string codProd;
 	cout<< "Ingrese el codigo de producto: ";
 	cin >> codProd;
-
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	int temp5 = stoi(codProd);
 	pnodoPais aux = listaPais->primero;
-	if(listaPais->buscarPais(stoi(codPais))==true){
+	if(listaPais->buscarPais(temp)==true){
 		while(aux!=NULL){
-			if(aux->cod == stoi(codPais)){
+			if(aux->cod == temp){
 				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
-					if(aux2->cod == stoi(codCiudad)){
+					if(aux2->cod == temp2){
 						pnodoRest aux3 = aux2->listaRestaurante->primero;
 						pnodoRest head = aux2->listaRestaurante->primero;
-							while(aux3->siguiente!=head && aux3->cod!=stoi(codRest)){
-								if(aux3->cod==stoi(codRest)){
-									pnodoMenu aux4 = aux3->listaMenu->primero;
-									while(aux4!=NULL){
-										if(aux4->cod == stoi(codMenu)){
-										cout<<"El codigo de prod es "<<codProd<<endl;
-										cout<<"El codigo de MEnu es "<<codMenu<<endl;
-										cout<<"La posicion de prod en lista menu es "<<aux4->listaProd->buscarPos(stoi(codProd))<<endl;
-										aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(stoi(codProd)));
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod==temp3){
+								pnodoMenu aux4 = aux3->listaMenu->primero;
+								while(aux4!=NULL){
+									if(aux4->cod == temp4){
+										aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(temp5));
 										return;
-										}
-									aux4= aux4->siguiente;
 									}
-									cout<<"Menu";
-									return;
-								}else{
-								cout<<"restaurante";
-								return;	
-								}	
-							aux3=aux3->siguiente;
-							}	
-						}else{
-						aux2= aux2->siguiente;					
+								aux4= aux4->siguiente;
+								}
+								cout<<"Menu no existe/eliminar prod"<<endl;
+								return;
+							}else{
+								cout<<"Restaurante no existe/eliminar prod"<<endl;
+								return;
+							}
 						}
+				aux2= aux2->siguiente;
 				}
-							cout<<"ciudad";
+				cout<<"Ciudad no existe/eliminar prod"<<endl;
 				return;
 			}
 		aux=aux->siguiente;
 		}		
 	}
-	cout<<"pais";
+	cout<<"Ciudad no existe/eliminar prod"<<endl;
 	return;
 }
 

@@ -172,7 +172,7 @@ void listaDProducto::BorrarFinal()
 		 {
         	pnodoProd temp=primero;
             primero= NULL;
-            cout << "Producto borrado: "<<temp->cod<<":"<<temp->nomProd<< endl;
+            cout << "Producto borrado1: "<<temp->cod<<":"<<temp->nomProd<< endl;
             delete temp;
             } 
 			else 
@@ -185,7 +185,7 @@ void listaDProducto::BorrarFinal()
                 }
                 
               	pnodoProd temp = aux->siguiente;
-                cout << "Producto borrado: "<<aux->cod<<":"<<aux->nomProd<< endl;            
+                cout << "Producto borrado2: "<<temp->cod<<":"<<temp->nomProd<< endl;            
                 aux->siguiente= NULL;      
                 delete temp;
             }
