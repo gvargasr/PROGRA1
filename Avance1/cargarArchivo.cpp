@@ -78,7 +78,7 @@ void cargarArchivo::cargaInicial(){
 		getline(archivo, codpais, ';');
 		getline(archivo, codigo, ';');
 		getline(archivo, ciudad);
-		pnodoPais aux = listaPais->GetPrimero();
+		pnodoPais aux = listaPais->primero;
 		int temp = stoi(codpais);
 		int temp2 = stoi(codigo);
 		if(listaPais->buscarPais(temp)==true){
@@ -420,17 +420,19 @@ void cargarArchivo::SubMenu22(){
 	cin >> codCiudad;
 	cout<< "\nIngrese el Nombre de la ciudad: ";
 	cin >> ciudad;
-	pnodoPais aux = listaPais->GetPrimero();
-	if(listaPais->buscarPais(stoi(codPais))==true){
-			while(aux!=NULL){
-				if(aux->cod == stoi(codPais)){
-					listaPais->InsertarCiudad(stoi(codCiudad),ciudad,aux->listaCiudad);
-				}
-			aux=aux->siguiente;
+	pnodoPais aux = listaPais->primero;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				listaPais->InsertarCiudad(temp2,ciudad,aux->listaCiudad);
 			}
+		aux=aux->siguiente;
 		}
-	
+	}			
 }
+
 
 void cargarArchivo::SubMenu23(){
 	string codPais;
@@ -448,11 +450,11 @@ void cargarArchivo::SubMenu23(){
 	pnodoPais aux = listaPais->primero;
 	if(listaPais->buscarPais(stoi(codPais))==true){
 		while(aux!=NULL){
-			if(aux->getCodigo() == stoi(codPais)){
+			if(aux->cod == stoi(codPais)){
 				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
 					if(aux2->cod == stoi(codCiudad)){
-						aux2->listaRestaurante->InsertarFinal(stoi(codPais), rest);
+						aux2->listaRestaurante->InsertarFinal(stoi(codRest), rest);
 						return;
 					}
 					aux2= aux2->siguiente;
@@ -678,7 +680,7 @@ void cargarArchivo::SubMenu33(){
 	if(listaPais->buscarPais(temp)==true){
 		while(aux!=NULL){
 			if(aux->getCodigo() == temp){
-				pnodoCiudad aux2 = aux->listaCiudad->GetPrimero();
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
 					if(aux2->cod == temp2){
 						aux2->listaRestaurante->BorrarPosicion(aux2->listaRestaurante->buscarPos(temp3));
@@ -774,6 +776,9 @@ void cargarArchivo::SubMenu35(){
 									pnodoMenu aux4 = aux3->listaMenu->primero;
 									while(aux4!=NULL){
 										if(aux4->cod == stoi(codMenu)){
+										cout<<"El codigo de prod es "<<codProd<<endl;
+										cout<<"El codigo de MEnu es "<<codMenu<<endl;
+										cout<<"La posicion de prod en lista menu es "<<aux4->listaProd->buscarPos(stoi(codProd))<<endl;
 										aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(stoi(codProd)));
 										return;
 										}
@@ -787,10 +792,11 @@ void cargarArchivo::SubMenu35(){
 								}	
 							aux3=aux3->siguiente;
 							}	
+						}else{
+						aux2= aux2->siguiente;					
 						}
-				aux2= aux2->siguiente;
 				}
-				cout<<"ciudad";
+							cout<<"ciudad";
 				return;
 			}
 		aux=aux->siguiente;

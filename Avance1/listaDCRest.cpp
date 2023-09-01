@@ -26,7 +26,6 @@ class nodoLDCRest {
 
     }
 
-// private:
     int cod;
     string rest;
     listaDMenu *listaMenu = NULL;
@@ -164,10 +163,14 @@ void listaDCRest::InsertarFinal(int codigo, string nombre)
    }  
    else{
      pnodoRest aux = primero;
-     	while ( aux->siguiente != primero && aux->cod!=codigo)
-     		aux=aux->siguiente;
-     	if(aux->cod==codigo){
+     	while ( aux->siguiente != primero && aux->cod!=codigo){
+     		if(aux->cod==codigo){
      		cout<<"Codigo de restaurante ya se encuentra, no fue agregado"<<endl;	
+     		}
+     	aux=aux->siguiente;
+		}
+		if(aux->cod==codigo){
+		    cout<<"Codigo de restaurante ya se encuentra, no fue agregado"<<endl;	
 		}
 		else{
 			aux=aux->siguiente;
@@ -178,8 +181,10 @@ void listaDCRest::InsertarFinal(int codigo, string nombre)
  			primero->anterior=nuevo;
 		   	cout<<"Restaurante agregado: "<<codigo<<":"<<nombre<<endl;
 		}
-    }    
-}
+	}
+}    
+
+
 
 
 
@@ -271,22 +276,18 @@ void listaDCRest::BorrarInicio()
 
 
 int listaDCRest::buscarPos(int codigo){
-	cout<<codigo<<endl;
 	if(ListaVacia()){
 		return -1;
-		cout<<"cae en A";
 	}
 	else
 	{
 		pnodoRest aux=primero;
-		cout<<aux->cod<<":"<<aux->rest<<endl;
 		int cont = 1;
 		while(aux->siguiente!=primero)
 		{
 			if(aux->cod == codigo){
 			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
 			return cont;
-			cout<<"cae en B";
 		}
 			else{
 			aux=aux->siguiente;
@@ -294,11 +295,9 @@ int listaDCRest::buscarPos(int codigo){
 			}
 		}
 		if(aux->cod == codigo){
-			cout<<"cae en C";
 			return cont;
 		}
 		else{
-		cout<<"cae en D";
 		return -1;
 		}
 		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
@@ -307,7 +306,6 @@ int listaDCRest::buscarPos(int codigo){
 }
 void listaDCRest:: BorrarPosicion(int pos)
 {
-  cout<<pos;  
   if(ListaVacia())
     cout << "Aun no hay restaurantes registrados." <<endl;
   else
@@ -324,7 +322,6 @@ void listaDCRest:: BorrarPosicion(int pos)
     if(pos>largoLista()||(pos<=0))
     {
        cout << "Restaurante no se encuentra." << endl;
-       Mostrar();
 	}
         
     else
