@@ -243,7 +243,6 @@ void listaDCiudad::BorrarFinal()
             	pnodoCiudad temp = aux->siguiente;
             	cout<<"Ciudad eliminada: "<<temp->cod<<":"<<temp->ciudad<<endl;
             	aux->siguiente= NULL;
-                      
                 delete temp;
             }
         }

@@ -886,7 +886,7 @@ int main(){
 	cout<<"\nIntegrantes:\nGustavo Vargas Ramirez   --- 200409141 \nGabriel Campos Gutierrez --- 2023093692"<<endl;
 	cout<<endl<<"*********************************************************************************"<<endl<<endl;	
 	cargarArchivo Inicio;
-//	Inicio.cargaInicial();
+	Inicio.cargaInicial();
 	Inicio.Menu();
 
  
