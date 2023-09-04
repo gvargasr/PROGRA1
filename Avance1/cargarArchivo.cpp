@@ -917,9 +917,9 @@ void cargarArchivo::SubMenu42(){
 			}
 		aux=aux->siguiente;
 		}
-		cout<<"Ciudad con codigo: "<<codCiudad<<" no existe.";
+		cout<<"Ciudad no existe en pais "<<temp<<endl;
 	}
-	cout<<"PAIS NO EXISTE";
+	cout<<"Pais no existe en base de datos";
 }
 
 void cargarArchivo::SubMenu43(){
@@ -948,13 +948,13 @@ void cargarArchivo::SubMenu43(){
 					aux2= aux2->siguiente;
 				}	
 			}else{
-				cout<<"CIUDAD NO EXISTE";
+				cout<<"Ciudad no existe en pais "<<temp<<endl;
 				return;
 			}
 		aux=aux->siguiente;
 		}		
 	}
-	cout<<"PAIS NO EXISTE";
+	cout<<"Pais no existe en base de datos";
 }
 
 
@@ -987,21 +987,21 @@ void cargarArchivo::SubMenu44(){
 							while(aux3->siguiente!=head && aux3->cod!=temp3)
 								aux3=aux3->siguiente;
 							if(aux3->cod == temp3){
-							aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
+							aux3->listaMenu->busqueda(temp,temp2,temp3,temp4);
 							return;
 							}
-							cout<<"RESTAURANTE NO EXISTE/buscar menu";	
+							cout<<"Restaurante no existe en ciudad "<<temp2<<endl;	
 							return;
 					}
 					aux2= aux2->siguiente;
 				}
-			cout<<"CIUDAD NO EXISTE/buscar menu";
+			cout<<"Ciudad no existe en pais "<<temp<<endl;
 			return;
 			}
 		aux=aux->siguiente;
 		}
 	}
-	cout<<"PAIS NO EXISTE/buscar menu";
+	cout<<"Pais no existe en base de datos";
 }
 
 void cargarArchivo::SubMenu45(){
@@ -1040,27 +1040,27 @@ void cargarArchivo::SubMenu45(){
 								pnodoMenu aux4 = aux3->listaMenu->primero;
 								while(aux4!=NULL){
 									if(aux4->cod == temp4){
-										aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(temp5));
+										aux4->listaProd->busqueda(temp, temp2, temp3, temp4, temp5);
 										return;
 									}
 								aux4= aux4->siguiente;
 								}
-								cout<<"Menu no existe/buscar prod"<<endl;
+								cout<<"Menu no existe en restaurante "<<temp3<<endl;
 								return;
 							}else{
-								cout<<"Restaurante no existe/buscar prod"<<endl;
+								cout<<"Restaurante no existe en ciudad "<<temp2<<endl;	
 								return;
 							}
 						}
 				aux2= aux2->siguiente;
 				}
-				cout<<"Ciudad no existe/buscar prod"<<endl;
+				cout<<"Ciudad no existe en pais "<<temp<<endl;
 				return;
 			}
 		aux=aux->siguiente;
 		}		
 	}
-	cout<<"Ciudad no existe/buscar prod"<<endl;
+	cout<<"Pais no existe en base de datos";
 	return;
 }
 

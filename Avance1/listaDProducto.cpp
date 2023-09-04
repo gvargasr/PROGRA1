@@ -61,6 +61,7 @@ class listaDProducto {
     int largoLista();
     pnodoProd GetPrimero();
     int buscarPos(int codigo);
+	void busqueda(int pais, int ciudad, int rest, int menu, int codigo);
 
 
     
@@ -79,6 +80,27 @@ listaDProducto::~listaDProducto()
    }
    primero=NULL;
 }
+
+
+void listaDProducto::busqueda(int pais, int ciudad, int rest, int menu, int codigo){
+	if(ListaVacia()){
+		cout<<"No hay menus ingresados"<<endl<<endl;
+	}
+	else{
+		pnodoProd aux=primero;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			cout<<"Producto encontrado: \nPais: "<<pais<<"\nCiudad: "<<ciudad<<"\nRestaurante: "<<rest<<"\nMenu: "<<aux->cod<<"\nProducto: "<<aux->nomProd<<"\nPrecio: "<<aux->precio<<"\nKcal: "<<aux->kcal<<endl<<endl;
+			return;
+		}
+			else
+			aux=aux->siguiente;
+		}
+		cout<<"El producto con codigo: "<<codigo<<" no se encuentra en:\nPais: "<<pais<<"\nCiudad: "<<ciudad<<"\nRestaurante: "<<rest<<"\nMenu: "<<menu<<endl<<endl;
+	}
+}
+
 
 int listaDProducto::largoLista(){
     int cont=0;
