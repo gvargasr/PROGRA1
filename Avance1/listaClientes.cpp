@@ -51,12 +51,33 @@ class listaClientes {
     void borrarPosicion(int pos);
     int largoLista();// retorno un valor numerico
     int buscarPos(int codigo);
+    void busqueda(int codigo);
 
     
    private:
     pnodo primero;
    
 };
+
+
+void listaClientes::busqueda(int codigo){
+	if(ListaVacia()){
+		cout<<"No hay clientes ingresados"<<endl<<endl;
+	}
+	else{
+		pnodo aux=primero;
+		while(aux!=NULL)
+		{
+			if(aux->valor == codigo){
+			cout<<"Cliente encontrado: "<<aux->valor<<":"<<aux->nombre<<endl<<endl;
+			return;
+		}
+			else
+			aux=aux->siguiente;
+		}
+		cout<<"El cliente con cedula: "<<codigo<<" no se encuentra"<<endl<<endl;
+	}
+}
 
 listaClientes::~listaClientes()
 {

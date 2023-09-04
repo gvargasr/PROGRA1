@@ -1069,7 +1069,7 @@ void cargarArchivo::SubMenu46(){
 	cout<< "Ingrese el numero de cedula que desea buscar: ";
 	cin >> cedula;
 	
-	listaCliente->borrarPosicion(listaCliente->buscarPos(stoi(cedula)));
+	listaCliente->busqueda(stoi(cedula));
 }
 
 
