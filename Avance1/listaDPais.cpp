@@ -63,6 +63,8 @@ class listaDPais {
 	bool buscarPais(int codigo);
 	pnodoPais GetPrimero();
 	int buscarPos(int codigo);
+	void busqueda(int codigo);
+
 
 
 
@@ -107,6 +109,25 @@ bool listaDPais::buscarPais(int codigo){
 		}
 		//cout<<"El string "<<codigo<<" no se encuentra en la lista"<<endl;
 		return false;
+	}
+}
+
+void listaDPais::busqueda(int codigo){
+	if(ListaVacia()){
+		cout<<"No hay paises ingresados"<<endl<<endl;
+	}
+	else{
+		pnodoPais aux=primero;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			cout<<"Pais encontrado: "<<aux->cod<<":"<<aux->pais<<endl<<endl;
+			return;
+		}
+			else
+			aux=aux->siguiente;
+		}
+		cout<<"El pais con codigo: "<<codigo<<" no se encuentra"<<endl<<endl;
 	}
 }
 

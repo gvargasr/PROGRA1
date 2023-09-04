@@ -58,7 +58,8 @@ class listaDMenu {
 	pnodoMenu EntregarListaMenu();
 	pnodoMenu GetPrimero();
 	int buscarPos(int codigo);
-
+	void busqueda(int pais, int ciudad, int codigo);
+	
     
 //   private:
     pnodoMenu primero;
@@ -68,6 +69,27 @@ class listaDMenu {
 pnodoMenu listaDMenu::GetPrimero(){
 	return primero;
 }
+
+
+void listaDMenu::busqueda(int pais, int ciudad, int codigo){
+	if(ListaVacia()){
+		cout<<"No hay ciudades ingresadas"<<endl<<endl;
+	}
+	else{
+		pnodoMenu aux=primero;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			cout<<"Restaurante encontrado: "<<pais<<":"<<ciudad<<":"<<aux->cod<<":"<<aux->nomMenu<<endl<<endl;
+			return;
+		}
+			else
+			aux=aux->siguiente;
+		}
+		cout<<"La ciudad con codigo: "<<codigo<<" no se encuentra en pais: "<<pais<<endl<<endl;
+	}
+}
+
 
 // Insertar producto desde ListaMenu
 void listaDMenu::InsertarProducto(int codigo, string nombre, int kcal, int precio, listaDProducto *listaP){

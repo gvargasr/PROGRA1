@@ -35,6 +35,20 @@ class cargarArchivo {
 	void SubMenu34();
 	void SubMenu35();
 	void SubMenu36();
+	void SubMenu4();
+	void SubMenu41();
+	void SubMenu42();
+	void SubMenu43();
+	void SubMenu44();
+	void SubMenu45();
+	void SubMenu46();
+	void SubMenu5();
+	void SubMenu51();
+	void SubMenu52();
+	void SubMenu53();
+	void SubMenu54();
+	void SubMenu55();
+	void SubMenu56();
 
     
 
@@ -818,6 +832,487 @@ void cargarArchivo::SubMenu36(){
 }
 
 
+//Busqueda
+
+void cargarArchivo::SubMenu4(){
+		cout << endl << "----------------------------" << endl;
+  		cout << endl << "      4. Buscar   " << endl;
+        cout << endl << "----------------------------" << endl;
+		cout << endl;
+		cout << "1. Pais"<<endl;
+		cout << "2. Ciudad"<<endl;
+		cout << "3. Restaurante"<<endl;
+		cout << "4. Menu"<<endl;
+		cout << "5. Producto"<<endl;
+		cout << "6. Cliente"<<endl;
+		cout << "7. Volver"<<endl;
+		cout <<endl<<endl;
+		cout <<"Seleccione una opcion: "<<endl;		
+		char opt;
+		cin >> opt;
+	switch(opt){
+		case '1':{
+			cout<< "4.1 Buscar Pais"<<endl;
+			SubMenu41();
+			break;
+		}
+		case '2':{
+			cout<< "4.2 Buscar Ciudad"<<endl;
+			SubMenu42();			
+			break;
+		}
+		case '3':{
+			cout<< "4.3 Buscar Restaurante"<<endl;
+			SubMenu43();
+			break;
+		}
+		case '4':{
+			cout<< "4.4 Buscar Menu"<<endl;
+			SubMenu44();
+			break;
+		}
+		case '5':{
+			cout<< "4.5 Buscar Producto"<<endl;
+			SubMenu45();
+			break;
+		}
+		case '6':{
+			cout<< "4.6 Buscar Cliente"<<endl;
+			SubMenu46();
+			break;
+		}
+		case '7':{
+			cout<<"Volviendo a Main Menu"<<endl;			
+			break;
+		}
+		default :{
+			cout<< "!!! Valor incorrecto, ingresar un valor dentro del rango !!!"<<endl;
+			break;
+		}
+	}
+}
+
+void cargarArchivo::SubMenu41(){
+	string cod;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> cod;
+	listaPais->busqueda(stoi(cod));
+}
+
+void cargarArchivo::SubMenu42(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo ciudad: ";
+	cin >> codCiudad;
+	pnodoPais aux = listaPais->GetPrimero();
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				aux->listaCiudad->busqueda(stoi(codPais),stoi(codCiudad));
+				return;
+			}
+		aux=aux->siguiente;
+		}
+		cout<<"Ciudad con codigo: "<<codCiudad<<" no existe.";
+	}
+	cout<<"PAIS NO EXISTE";
+}
+
+void cargarArchivo::SubMenu43(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo restaurante: ";
+	cin >> codRest;
+	pnodoPais aux = listaPais->primero;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->getCodigo() == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						aux2->listaRestaurante->busqueda(temp,temp2,temp3);
+						return;
+					}
+					aux2= aux2->siguiente;
+				}	
+			}else{
+				cout<<"CIUDAD NO EXISTE";
+				return;
+			}
+		aux=aux->siguiente;
+		}		
+	}
+	cout<<"PAIS NO EXISTE";
+}
+
+
+void cargarArchivo::SubMenu44(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo restaurante: ";
+	cin >> codRest;
+	string codMenu;
+	cout<< "Ingrese el codigo menu: ";
+	cin >> codMenu;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						pnodoRest aux3 = aux2->listaRestaurante->primero;
+						pnodoRest head = aux2->listaRestaurante->primero;
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod == temp3){
+							aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
+							return;
+							}
+							cout<<"RESTAURANTE NO EXISTE/buscar menu";	
+							return;
+					}
+					aux2= aux2->siguiente;
+				}
+			cout<<"CIUDAD NO EXISTE/buscar menu";
+			return;
+			}
+		aux=aux->siguiente;
+		}
+	}
+	cout<<"PAIS NO EXISTE/buscar menu";
+}
+
+void cargarArchivo::SubMenu45(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo de ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo de restaurante: ";
+	cin >> codRest;
+	string codMenu;
+	cout<< "Ingrese el codigo de menu: ";
+	cin >> codMenu;
+	string codProd;
+	cout<< "Ingrese el codigo de producto: ";
+	cin >> codProd;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	int temp5 = stoi(codProd);
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						pnodoRest aux3 = aux2->listaRestaurante->primero;
+						pnodoRest head = aux2->listaRestaurante->primero;
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod==temp3){
+								pnodoMenu aux4 = aux3->listaMenu->primero;
+								while(aux4!=NULL){
+									if(aux4->cod == temp4){
+										aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(temp5));
+										return;
+									}
+								aux4= aux4->siguiente;
+								}
+								cout<<"Menu no existe/buscar prod"<<endl;
+								return;
+							}else{
+								cout<<"Restaurante no existe/buscar prod"<<endl;
+								return;
+							}
+						}
+				aux2= aux2->siguiente;
+				}
+				cout<<"Ciudad no existe/buscar prod"<<endl;
+				return;
+			}
+		aux=aux->siguiente;
+		}		
+	}
+	cout<<"Ciudad no existe/buscar prod"<<endl;
+	return;
+}
+
+void cargarArchivo::SubMenu46(){
+	string cedula;
+	cout<< "Ingrese el numero de cedula que desea buscar: ";
+	cin >> cedula;
+	
+	listaCliente->borrarPosicion(listaCliente->buscarPos(stoi(cedula)));
+}
+
+
+
+// Modificar
+
+void cargarArchivo::SubMenu5(){
+		cout << endl << "----------------------------" << endl;
+  		cout << endl << "      5. Modificar   " << endl;
+        cout << endl << "----------------------------" << endl;
+		cout << endl;
+		cout << "1. Pais"<<endl;
+		cout << "2. Ciudad"<<endl;
+		cout << "3. Restaurante"<<endl;
+		cout << "4. Menu"<<endl;
+		cout << "5. Producto"<<endl;
+		cout << "6. Cliente"<<endl;
+		cout << "7. Volver"<<endl;
+		cout <<endl<<endl;
+		cout <<"Seleccione una opcion: "<<endl;		
+		char opt;
+		cin >> opt;
+	switch(opt){
+		case '1':{
+			cout<< "5.1 Modificar Pais"<<endl;
+			SubMenu51();
+			break;
+		}
+		case '2':{
+			cout<< "5.2 Modificar Ciudad"<<endl;
+			SubMenu52();			
+			break;
+		}
+		case '3':{
+			cout<< "5.3 Modificar Restaurante"<<endl;
+			SubMenu53();
+			break;
+		}
+		case '4':{
+			cout<< "5.4 Modificar Menu"<<endl;
+			SubMenu54();
+			break;
+		}
+		case '5':{
+			cout<< "5.5 Modificar Producto"<<endl;
+			SubMenu55();
+			break;
+		}
+		case '6':{
+			cout<< "5.6 Modificar Cliente"<<endl;
+			SubMenu56();
+			break;
+		}
+		case '7':{
+			cout<<"Volviendo a Main Menu"<<endl;			
+			break;
+		}
+		default :{
+			cout<< "!!! Valor incorrecto, ingresar un valor dentro del rango !!!"<<endl;
+			break;
+		}
+	}
+}
+
+void cargarArchivo::SubMenu51(){
+	string cod;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> cod;
+	listaPais->BorrarPosicion(listaPais->buscarPos(stoi(cod)));
+}
+
+void cargarArchivo::SubMenu52(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo ciudad: ";
+	cin >> codCiudad;
+	pnodoPais aux = listaPais->GetPrimero();
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				aux->listaCiudad->BorrarPosicion(aux->listaCiudad->buscarPos(temp2));
+				return;
+			}
+		aux=aux->siguiente;
+		}
+	}
+	cout<<"PAIS NO EXISTE";
+}
+
+void cargarArchivo::SubMenu53(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo restaurante: ";
+	cin >> codRest;
+	pnodoPais aux = listaPais->GetPrimero();
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->getCodigo() == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						aux2->listaRestaurante->BorrarPosicion(aux2->listaRestaurante->buscarPos(temp3));
+						return;
+					}
+					aux2= aux2->siguiente;
+				}	
+			}else{
+				cout<<"CIUDAD NO EXISTE";
+				return;
+			}
+		aux=aux->siguiente;
+		}	
+	cout<<"PAIS NO EXISTE";
+	}
+}
+
+
+void cargarArchivo::SubMenu54(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo restaurante: ";
+	cin >> codRest;
+	string codMenu;
+	cout<< "Ingrese el codigo menu: ";
+	cin >> codMenu;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						pnodoRest aux3 = aux2->listaRestaurante->primero;
+						pnodoRest head = aux2->listaRestaurante->primero;
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod == temp3){
+							aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
+							return;
+							}
+							cout<<"RESTAURANTE NO EXISTE/eliminar menu";	
+							return;
+					}
+					aux2= aux2->siguiente;
+				}
+			cout<<"CIUDAD NO EXISTE/eliminar menu";
+			return;
+			}
+		aux=aux->siguiente;
+		}
+	}
+	cout<<"PAIS NO EXISTE/eliminar menu";
+}
+
+void cargarArchivo::SubMenu55(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo de ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo de restaurante: ";
+	cin >> codRest;
+	string codMenu;
+	cout<< "Ingrese el codigo de menu: ";
+	cin >> codMenu;
+	string codProd;
+	cout<< "Ingrese el codigo de producto: ";
+	cin >> codProd;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	int temp5 = stoi(codProd);
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						pnodoRest aux3 = aux2->listaRestaurante->primero;
+						pnodoRest head = aux2->listaRestaurante->primero;
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod==temp3){
+								pnodoMenu aux4 = aux3->listaMenu->primero;
+								while(aux4!=NULL){
+									if(aux4->cod == temp4){
+										aux4->listaProd->BorrarPosicion(aux4->listaProd->buscarPos(temp5));
+										return;
+									}
+								aux4= aux4->siguiente;
+								}
+								cout<<"Menu no existe/eliminar prod"<<endl;
+								return;
+							}else{
+								cout<<"Restaurante no existe/eliminar prod"<<endl;
+								return;
+							}
+						}
+				aux2= aux2->siguiente;
+				}
+				cout<<"Ciudad no existe/eliminar prod"<<endl;
+				return;
+			}
+		aux=aux->siguiente;
+		}		
+	}
+	cout<<"Ciudad no existe/eliminar prod"<<endl;
+	return;
+}
+
+void cargarArchivo::SubMenu56(){
+	string cedula;
+	cout<< "Ingrese el numero de cedula que desea eliminar: ";
+	cin >> cedula;
+	
+	listaCliente->borrarPosicion(listaCliente->buscarPos(stoi(cedula)));
+}
+
 void cargarArchivo::Menu(){
 	while(true){
 	    cout << endl << "----------------------------" << endl;
@@ -853,11 +1348,11 @@ void cargarArchivo::Menu(){
 			break;
 		}
     	case '4':
-    		cout<<"Ingresando a Submenu 4...";
+    		SubMenu4();
     		Menu();
     		break;
     	case '5':
-    		cout<<"Ingresando a Submenu 5...";
+    		SubMenu5();
     		Menu();
 			break;
 		case '6':

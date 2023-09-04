@@ -58,6 +58,8 @@ class listaDCRest {
 	pnodoRest EntregarListaRest();
 	pnodoRest GetPrimero();
 	int buscarPos(int codigo);
+	void busqueda(int pais, int ciudad, int codigo);
+
 
     
 //   private:
@@ -67,6 +69,30 @@ class listaDCRest {
 
 pnodoRest listaDCRest::GetPrimero(){
 	return primero;
+}
+
+
+void listaDCRest::busqueda(int pais, int ciudad, int codigo){
+	if(ListaVacia()){
+		cout<<"No hay ciudades ingresadas"<<endl<<endl;
+	}
+	else{
+		pnodoRest aux=primero;
+		pnodoRest aux2=primero;
+		while(aux->siguiente!=aux2)
+		{
+			if(aux->cod == codigo){
+
+		}
+			else
+			aux=aux->siguiente;
+		}
+		if(aux->cod == codigo){
+			cout<<"Restaurante encontrado: "<<pais<<":"<<ciudad<<":"<<aux->cod<<":"<<aux->rest<<endl<<endl;
+			return;	
+		}
+		cout<<"El restaurante con codigo: "<<codigo<<" no se encuentra en pais:ciudad: "<<pais<<":"<<ciudad<<endl<<endl;
+	}
 }
 
 // Insertar menu desde ListaRest

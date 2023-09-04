@@ -59,6 +59,7 @@ class listaDCiudad {
 	pnodoCiudad GetPrimero();
 	int GetCodigo(pnodoCiudad nodo);
 	int buscarPos(int codigo);
+	void busqueda(int pais, int codigo);
 
 
 
@@ -75,6 +76,25 @@ int listaDCiudad::GetCodigo(pnodoCiudad nodo){
 pnodoCiudad listaDCiudad::GetPrimero(){
 	pnodoCiudad aux = primero;
 	 return aux;
+}
+
+void listaDCiudad::busqueda(int pais, int codigo){
+	if(ListaVacia()){
+		cout<<"No hay ciudades ingresadas"<<endl<<endl;
+	}
+	else{
+		pnodoCiudad aux=primero;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			cout<<"Ciudad encontrada: "<<pais<<":"<<aux->cod<<":"<<aux->ciudad<<endl<<endl;
+			return;
+		}
+			else
+			aux=aux->siguiente;
+		}
+		cout<<"La ciudad con codigo: "<<codigo<<" no se encuentra en pais: "<<pais<<endl<<endl;
+	}
 }
 
 
