@@ -222,7 +222,7 @@ void cargarArchivo::cargaInicial(){
 							pnodoRest head = aux2->listaRestaurante->primero;
 								while(aux3->siguiente!=head && aux3->cod!=temp3)
 									aux3=aux3->siguiente;
-								if(aux3->cod==temp3);
+								if(aux3->cod==temp3){
 									pnodoMenu aux4 = aux3->listaMenu->primero;
 									while(aux4!=NULL){
 										if(aux4->cod == temp4){
@@ -230,7 +230,7 @@ void cargarArchivo::cargaInicial(){
 										}
 									aux4= aux4->siguiente;
 									}
-								
+							}
 						}
 					aux2= aux2->siguiente;
 					}
@@ -562,14 +562,15 @@ void cargarArchivo::SubMenu25(){
 						pnodoRest head = aux2->listaRestaurante->primero;
 							while(aux3->siguiente!=head && aux3->cod!=stoi(codRest))
 								aux3=aux3->siguiente;
-							if(aux3->cod==stoi(codRest));
+							if(aux3->cod==stoi(codRest)){
 								pnodoMenu aux4 = aux3->listaMenu->primero;
 								while(aux4!=NULL){
 									if(aux4->cod == stoi(codMenu)){
 									aux3->listaMenu->InsertarProducto(stoi(codProd), producto, stoi(kcal), stoi(precio), aux4->listaProd);
 									}
 								aux4= aux4->siguiente;
-								}							
+								}
+							}
 					}
 				aux2= aux2->siguiente;
 				}
