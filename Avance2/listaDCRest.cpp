@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <fstream>
 #include "listaDMenu.cpp"
 
 using namespace std;
@@ -59,6 +60,8 @@ class listaDCRest {
 	pnodoRest GetPrimero();
 	int buscarPos(int codigo);
 	void MostrarPosicion(int pos);
+	void reporteRestaurante(string ciudad);
+
     
 //   private:
     pnodoRest primero;
@@ -132,6 +135,27 @@ int listaDCRest::largoLista() //3-4-5    cont=0 1 2 3
     }
     
 }
+
+
+void listaDCRest::reporteRestaurante(string ciudad)
+{
+   pnodoRest aux=primero;
+   
+    ofstream archivo_salida("Reporte_Restaurante_"+ciudad+".txt");
+    if (!archivo_salida.is_open()) {
+        cerr << "No se pudo abrir el archivo." <<endl;
+    }
+    archivo_salida << "REPORTE LISTA RESTAURANTES DE "<<ciudad<<endl<<endl<<endl;
+    while(aux->siguiente!=primero) {
+   		archivo_salida << aux->cod << ":"<<aux->rest<< "\n";
+        aux = aux->siguiente;
+    }
+    archivo_salida << aux->cod << ":"<<aux->rest<< "\n";
+    cout << endl;
+    archivo_salida.close();
+    cout << "Reporte generado";
+}
+
 
 void listaDCRest::InsertarInicio(int codigo, string nombre)
 {

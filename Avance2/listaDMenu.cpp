@@ -1,6 +1,7 @@
  
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "listaDProducto.cpp"
 
 using namespace std;
@@ -59,6 +60,7 @@ class listaDMenu {
 	pnodoMenu GetPrimero();
 	int buscarPos(int codigo);
 	void MostrarPosicion(int pos);
+	void reporteMenu(string rest);
     
 //   private:
     pnodoMenu primero;
@@ -301,7 +303,28 @@ void listaDMenu:: BorrarPosicion(int pos)
       }//else
     }//else
 }
+
+
  
+void listaDMenu::reporteMenu(string rest)
+{
+   nodoLDMenu *aux;
+   aux = primero;
+
+	ofstream archivo_salida("Reporte_Menu_"+rest+".txt");
+    if (!archivo_salida.is_open()) {
+        cerr << "No se pudo abrir el archivo." <<endl;
+    }
+    archivo_salida << "REPORTE LISTA MENU DE "<<rest<<endl<<endl<<endl;
+
+    while(aux) {
+       archivo_salida << aux->cod << ":"<<aux->nomMenu<< "\n";
+       aux = aux->siguiente;
+    }
+    cout << endl;
+    archivo_salida.close();
+	cout << "Reporte generado";
+}
 
 void listaDMenu::Mostrar()
 {

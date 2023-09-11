@@ -1,5 +1,7 @@
  
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "listaCompra.cpp"
 using namespace std;
 
@@ -59,6 +61,8 @@ class listaClientes {
 	void ModPosicion(int pos);
     void InsertarCompra(int codigo, string nombre, int kcal, int precio, int cant, listaDCompra *listaP);
     pnodo GetPrimero();
+    void reporteClientes();
+
     
     
    //private:
@@ -287,6 +291,31 @@ void listaClientes:: borrarPosicion(int pos){
         }
      }
 
+}
+
+
+void listaClientes::reporteClientes()
+{
+   nodo *aux;
+   if (primero== NULL)
+       cout << "No hay clientes registrados";  
+   else
+   {
+   		aux = primero;
+   		ofstream archivo_salida("Reporte_Clientes.txt");
+    	if (!archivo_salida.is_open()) {
+        cerr << "No se pudo abrir el archivo." <<endl;
+   		}	
+    	archivo_salida << "REPORTE LISTA DE CLIENTES"<<endl<<endl<<endl;
+		while(aux) 
+		{
+			archivo_salida << aux->valor << ":"<<aux->nombre<< "\n";
+		    aux = aux->siguiente;
+		}
+		cout << endl;
+		archivo_salida.close();
+    	cout << "Reporte generado";
+   }
 }
 
 

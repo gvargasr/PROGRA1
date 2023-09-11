@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "listaDCRest.cpp"
 
 using namespace std;
@@ -60,6 +61,8 @@ class listaDCiudad {
 	int GetCodigo(pnodoCiudad nodo);
 	int buscarPos(int codigo);
 	void MostrarPosicion(int pos);
+	void reporteCiudades(string pais);
+
 
 
 	    
@@ -132,6 +135,25 @@ listaDCiudad::~listaDCiudad()
       delete aux;
    }
    primero=NULL;
+}
+
+void listaDCiudad::reporteCiudades(string pais)
+{
+   nodoLDCiudad *aux;
+   
+	aux = primero;
+    ofstream archivo_salida("Reporte_Ciudades_"+pais+".txt");
+    if (!archivo_salida.is_open()) {
+        cerr << "No se pudo abrir el archivo." <<endl;
+    }
+    archivo_salida << "REPORTE LISTA CIUDADES DE "<<pais<<endl<<endl<<endl;
+    while(aux) {
+   		archivo_salida << aux->cod << ":"<<aux->ciudad<< "\n";
+        aux = aux->siguiente;
+    }
+    cout << endl;
+    archivo_salida.close();
+    cout << "Reporte generado";
 }
 
 int listaDCiudad::largoLista(){

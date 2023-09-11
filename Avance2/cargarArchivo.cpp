@@ -53,7 +53,15 @@ class cargarArchivo {
     void SubMenu56();
 	void SubMenu57();
 	void SubMenu571(pnodoComp Prod);
-	
+	void SubMenu6();
+	void SubMenu61();
+    void SubMenu62();
+    void SubMenu63();
+    void SubMenu64();
+    void SubMenu65();
+    void SubMenu66();
+    void SubMenu67();
+    void SubMenu68();
 	void SubMenu8();
 	void SubMenu81(int cedula);
 	
@@ -76,18 +84,21 @@ void cargarArchivo::cargaInicial(){
 	pnodoPais aux = listaPais->primero;
 	ifstream archivo;
 
+try{
+
 	archivo.open("Archivos/Paises.txt");
 	while(!archivo.eof()){
 		string codigo;
 		string pais;
 		getline(archivo,codigo, ';');
 		getline(archivo, pais);
-			
-		listaPais->InsertarFinal(stoi(codigo),pais);
+		if(!codigo.empty()){
+			listaPais->InsertarFinal(stoi(codigo),pais);
+		}	
+
 	}
 	archivo.close();
 	cout<<endl<<"*********************************************************************************"<<endl<<endl;
-
 
 	archivo.open("Archivos/Ciudades.txt");
 	while(!archivo.eof()){
@@ -258,76 +269,20 @@ void cargarArchivo::cargaInicial(){
 	}
 	archivo.close();
 	cout<<endl<<"*********************************************************************************"<<endl<<endl;	
+
+} catch(const std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return ; // Salir del programa con código de error
+    }
 }
+
+
 
 
 void cargarArchivo::EliminarPais(int codigo){
 	listaPais->BorrarPosicion(listaPais->buscarPos(codigo));
 }
-/*
-// Mostrar Todo:
-	
-void cargarArchivo::MostrarTodo(){
-	pnodoPais aux = listaPais->primero;
-	while(aux!=NULL){
-		cout<<"Pais "<<endl;
-		cout<<aux->getCodigo()<<":"<<aux->pais<<endl;
-		pnodoCiudad aux2 = aux->listaCiudad->primero;	
-			while(aux2!=NULL){
-				cout<<"Ciudad"<<endl;
-				cout<<aux2->cod<<":"<<aux2->ciudad<<endl;
-				pnodoRest aux3 = aux2->listaRestaurante->primero;
-				pnodoRest temp = aux2->listaRestaurante->primero;
-				while(aux3!=temp){
-					
-				}
-				aux2 = aux2->siguiente;
-			}
-		aux = aux->siguiente;	
-		}
-	
-	}
-*/
 
-
-/*
-int main(){
-
-	cargarArchivo Inicio;
-	Inicio.cargaInicial();
-	Inicio.listaPais->Mostrar();
-	cout<<Inicio.listaPais->largoLista();
-	cout<<Inicio.listaPais->buscarPos(12);
-	Inicio.listaPais->BorrarPosicion(Inicio.listaPais->buscarPos(12));
-	Inicio.listaPais->Mostrar();
-	Inicio.listaPais->BorrarPosicion(Inicio.listaPais->buscarPos(1));
-	Inicio.listaPais->Mostrar();
-	cout<<"Lista Ciudades de panama"<<endl;
-	Inicio.listaPais->GetPrimero()->listaCiudad->Mostrar();
-	Inicio.listaPais->GetPrimero()->listaCiudad->BorrarPosicion(Inicio.listaPais->GetPrimero()->listaCiudad->buscarPos(69));
-	Inicio.listaPais->GetPrimero()->listaCiudad->Mostrar();*/
-	
-	
-	
-/*	cout<<"Lista Ciudades de Estados Unidos"<<endl;
-	Inicio.listaPais->GetPrimero()->siguiente->listaCiudad->Mostrar();
-	cout<<"Lista Ciudades de Mexico"<<endl;
-	Inicio.listaPais->GetPrimero()->siguiente->siguiente->listaCiudad->Mostrar();
-	cout<<"Lista Restaurantes Panama "<<endl;
-	Inicio.listaPais->GetPrimero()->listaCiudad->GetPrimero()->listaRestaurante->Mostrar();
-	cout<<"Lista Restaurantes EEUU "<<endl;
-	Inicio.listaPais->GetPrimero()->siguiente->listaCiudad->GetPrimero()->siguiente->listaRestaurante->Mostrar();
-	cout<<endl;
-	cout<<"Lista Menu Panama "<<endl;
-	Inicio.listaPais->GetPrimero()->listaCiudad->GetPrimero()->listaRestaurante->GetPrimero()->listaMenu->Mostrar();
-	cout<<endl;
-	cout<<"Lista McPanama, menu HC"<<endl;
-	Inicio.listaPais->GetPrimero()->listaCiudad->GetPrimero()->listaRestaurante->GetPrimero()->listaMenu->GetPrimero()->listaProd->Mostrar();
-	cout<<endl<<endl;
-	cout<<"Lista de Clientes"<<endl;
-	Inicio.listaCliente->Mostrar();
-}
-*/
 
 
 void cargarArchivo::SubMenu1(){
@@ -423,8 +378,9 @@ void cargarArchivo::SubMenu21(){
 	string nombre;
 	cout<< "Ingrese el codigo de pais: ";
 	cin >> cod;
+	cin.ignore();
 	cout<< "\nIngrese el Nombre de pais: ";
-	cin >> nombre;
+	getline(cin,nombre);
 	listaPais->InsertarFinal(stoi(cod), nombre);
 	
 }
@@ -437,8 +393,9 @@ void cargarArchivo::SubMenu22(){
 	cin >> codPais;
 	cout<< "\nIngrese el codigo de ciudad: ";
 	cin >> codCiudad;
+	cin.ignore();
 	cout<< "\nIngrese el Nombre de la ciudad: ";
-	cin >> ciudad;
+	getline(cin,ciudad);
 	pnodoPais aux = listaPais->primero;
 	int temp = stoi(codPais);
 	int temp2 = stoi(codCiudad);
@@ -464,8 +421,9 @@ void cargarArchivo::SubMenu23(){
 	cin >> codCiudad;
 	cout<< "\nIngrese el codigo de restaurante: ";
 	cin >> codRest;
+	cin.ignore();
 	cout<< "\nIngrese el Nombre de restaurante: ";
-	cin >> rest;
+	getline(cin,rest);
 	pnodoPais aux = listaPais->primero;
 	if(listaPais->buscarPais(stoi(codPais))==true){
 		while(aux!=NULL){
@@ -501,8 +459,9 @@ void cargarArchivo::SubMenu24(){
 	cin >> codRest;
 	cout<< "\nIngrese el codigo de menu: ";
 	cin >> codMenu;
+	cin.ignore();
 	cout<< "\nIngrese el Nombre de menu: ";
-	cin >> menu;
+	getline(cin,menu);
 	pnodoPais aux = listaPais->primero;
 	int temp = stoi(codPais);
 	int temp2 = stoi(codCiudad);
@@ -549,8 +508,9 @@ void cargarArchivo::SubMenu25(){
 	cin >> codMenu;
 	cout<< "\nIngrese el codigo de producto: ";
 	cin >> codProd;
+	cin.ignore();
 	cout<< "\nIngrese el nombre de producto: ";
-	cin >> producto;
+	getline(cin,producto);
 	cout<< "\nIngrese cantidad de Kcal: ";
 	cin >> kcal;
 	cout<< "\nIngrese el precio de producto: ";
@@ -588,10 +548,11 @@ void cargarArchivo::SubMenu25(){
 void cargarArchivo::SubMenu26(){
 	string cedula;
 	string nombre;
-	cout<< "Ingrese el numero de cedula: ";
+	cout<< "Ingrese el numero de cedula: \n";
 	cin >> cedula;
+	cin.ignore();
 	cout<< "\nIngrese el nombre del cliente: ";
-	cin >> nombre;
+	getline(cin,nombre);
 	listaCliente->InsertarFinal(stoi(cedula),nombre);
 }
 
@@ -702,7 +663,7 @@ void cargarArchivo::SubMenu33(){
 	int temp3 = stoi(codRest);
 	if(listaPais->buscarPais(temp)==true){
 		while(aux!=NULL){
-			if(aux->getCodigo() == temp){
+			if(aux->cod == temp){
 				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
 					if(aux2->cod == temp2){
@@ -710,10 +671,8 @@ void cargarArchivo::SubMenu33(){
 						return;
 					}
 					aux2= aux2->siguiente;
-				}	
-			}else{
-				cout<<"CIUDAD NO EXISTE";
-				return;
+				}cout<<"CIUDAD NO EXISTE";
+				return;	
 			}
 		aux=aux->siguiente;
 		}	
@@ -942,7 +901,7 @@ void cargarArchivo::SubMenu43(){
 	int temp3 = stoi(codRest);
 	if(listaPais->buscarPais(temp)==true){
 		while(aux!=NULL){
-			if(aux->getCodigo() == temp){
+			if(aux->cod == temp){
 				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
 					if(aux2->cod == temp2){
@@ -952,10 +911,9 @@ void cargarArchivo::SubMenu43(){
 						return;
 					}
 					aux2= aux2->siguiente;
-				}	
-			}else{
+				}
 				cout<<"CIUDAD NO EXISTE";
-				return;
+				return;	
 			}
 		aux=aux->siguiente;
 		}	
@@ -1234,10 +1192,8 @@ void cargarArchivo::SubMenu53(){
 							}
 					}
 					aux2= aux2->siguiente;
-				}	
-			}else{
-				cout<<"CIUDAD NO EXISTE";
-				return;
+				}cout<<"CIUDAD NO EXISTE";
+				return;	
 			}
 		aux=aux->siguiente;
 		}	
@@ -1516,6 +1472,225 @@ void cargarArchivo::SubMenu571(pnodoComp Prod){
 }
 
 
+//Buscar
+
+void cargarArchivo::SubMenu6(){
+		cout << endl << "----------------------------" << endl;
+  		cout << endl << "      6. Reportes   " << endl;
+        cout << endl << "----------------------------" << endl;
+		cout << endl;
+		cout << "1. Lista de Paises"<<endl;
+		cout << "2. Lista de Ciudades por Pais"<<endl;
+		cout << "3. Lista de Restaurantes por Ciudad"<<endl;
+		cout << "4. Lista de Clientes"<<endl;
+		cout << "5. Restaurante MAS buscado"<<endl;
+		cout << "6. Menu MAS buscado"<<endl;
+		cout << "7. Producto MAS comprado"<<endl;
+		cout << "8. Consultar Precio de Producto"<<endl;
+		cout << "9. Volver"<<endl;
+		cout <<endl<<endl;
+		cout <<"Seleccione una opcion: "<<endl;		
+		char opt;
+		cin >> opt;
+	switch(opt){
+		case '1':{
+			cout<< "6.1 Lista de Paises"<<endl;
+			SubMenu61();
+			break;
+		}
+		case '2':{
+			cout<< "6.2 Lista de Ciudades por Pais"<<endl;
+			SubMenu62();			
+			break;
+		}
+		case '3':{
+			cout<< "6.3 Lista de Restaurantes por Ciudad"<<endl;
+			SubMenu63();
+			break;
+		}
+		case '4':{
+			cout<< "6.4 Lista de Clientes"<<endl;
+			SubMenu64();
+			break;
+		}
+		case '5':{
+			cout<< "6.5 Restaurante MAS buscado"<<endl;
+			SubMenu65();
+			break;
+		}
+		case '6':{
+			cout<< "6.6 Menu MAS buscado"<<endl;
+			SubMenu66();
+			break;
+		}
+		case '7':{
+			cout<< "6.7 Producto MAS comprado"<<endl;
+			SubMenu67();
+			break;
+		}
+		case '8':{
+			cout<< "6.8 Consultar Precio de Producto"<<endl;
+			SubMenu68();
+			break;
+		}
+		case '9':{
+			cout<<"Volviendo a Main Menu"<<endl;			
+			break;
+		}
+		default :{
+			cout<< "!!! Valor incorrecto, ingresar un valor dentro del rango !!!"<<endl;
+			break;
+		}
+	}
+}
+
+//Reporte de Paises
+void cargarArchivo::SubMenu61(){
+	cout<< "\nSe esta generando el archivo Reporte_Paises.txt\n.\n.\n.\n";
+	listaPais->reportePaises();
+}
+
+//Reporte de Ciudades por pais
+void cargarArchivo::SubMenu62(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	pnodoPais aux = listaPais->GetPrimero();
+	int temp = stoi(codPais);
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				cout<< "\nSe esta generando el archivo Reporte_Ciudades_"+aux->pais+".txt\n.\n.\n.\n"<<endl;
+				aux->listaCiudad->reporteCiudades(aux->pais);
+				return;
+			}
+		aux=aux->siguiente;
+		}
+	}
+	cout<<"El pais ingresado no existe";
+}
+
+//Reporte de Restaurantes por pais
+void cargarArchivo::SubMenu63(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo ciudad: ";
+	cin >> codCiudad;
+	pnodoPais aux = listaPais->GetPrimero();
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						cout<< "\nSe esta generando el archivo Reporte_Restaurante_"+aux2->ciudad+".txt\n.\n.\n.\n"<<endl;
+						aux2->listaRestaurante->reporteRestaurante(aux2->ciudad);
+						return;
+					}
+					aux2= aux2->siguiente;
+				}
+				cout<<"CIUDAD NO EXISTE";
+				return;	
+			}
+		aux=aux->siguiente;
+		}	
+	cout<<"PAIS NO EXISTE";
+	}
+}
+
+//Reporte de Clientes
+void cargarArchivo::SubMenu64(){
+	cout<< "\nSe esta generando el archivo Reporte_Clientes.txt\n.\n.\n.\n"<<endl;
+	listaCliente->reporteClientes();
+
+}
+
+void cargarArchivo::SubMenu65(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo de ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo de restaurante: ";
+	cin >> codRest;
+	string codMenu;
+	cout<< "Ingrese el codigo de menu: ";
+	cin >> codMenu;
+	string codProd;
+	cout<< "Ingrese el codigo de producto: ";
+	cin >> codProd;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	int temp5 = stoi(codProd);
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						pnodoRest aux3 = aux2->listaRestaurante->primero;
+						pnodoRest head = aux2->listaRestaurante->primero;
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod==temp3){
+								pnodoMenu aux4 = aux3->listaMenu->primero;
+								while(aux4!=NULL){
+									if(aux4->cod == temp4){
+										listaPais->MostrarPosicion(listaPais->buscarPos(temp));
+										aux->listaCiudad->MostrarPosicion(aux->listaCiudad->buscarPos(temp2));
+										aux2->listaRestaurante->MostrarPosicion(aux2->listaRestaurante->buscarPos(temp3));	
+										aux3->listaMenu->MostrarPosicion(aux3->listaMenu->buscarPos(temp4));
+										aux4->listaProd->MostrarPosicion(aux4->listaProd->buscarPos(temp5));
+										return;
+									}
+								aux4= aux4->siguiente;
+								}
+								cout<<"Menu no existe"<<endl;
+								return;
+							}else{
+								cout<<"Restaurante no existe"<<endl;
+								return;
+							}
+						}
+				aux2= aux2->siguiente;
+				}
+				cout<<"Ciudad no existe"<<endl;
+				return;
+			}
+		aux=aux->siguiente;
+		}		
+	}
+	cout<<"Pais no existe"<<endl;
+	return;
+}
+
+void cargarArchivo::SubMenu66(){
+	string cedula;
+	cout<< "Ingrese el numero de cedula que desea encontrar: ";
+	cin >> cedula;
+	
+	listaCliente->MostrarPosicion(listaCliente->buscarPos(stoi(cedula)));
+}
+
+void cargarArchivo::SubMenu67(){
+	string cod;
+	cout<< "Se esta generando el archivo Reporte_Paises.txt";
+}
+
+void cargarArchivo::SubMenu68(){
+	string cod;
+	cout<< "Se esta generando el archivo Reporte_Paises.txt";
+}
+
 //Comprar
 void cargarArchivo::SubMenu8(){
 		cout << "Inserte la cedula del usuario" << endl;
@@ -1548,8 +1723,6 @@ void cargarArchivo::SubMenu8(){
 				break;
 			}else{
 				pnodo aux = listaCliente->GetPrimero();
-				cout<<aux->nombre<<aux->valor<<endl;
-				aux->listaComp->Mostrar();
 				while(aux->valor!=temp) {
 						aux = aux->siguiente;
 } 
@@ -1685,7 +1858,7 @@ void cargarArchivo::Menu(){
     		Menu();
 			break;
 		case '6':
-    		cout<<"Ingresando a Submenu 6...";
+    		SubMenu6();
     		Menu();
 			break;
 		case '7':
