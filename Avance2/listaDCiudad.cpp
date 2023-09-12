@@ -26,7 +26,6 @@ nodoLDCiudad(int codigo, string nombre,  nodoLDCiudad * signodo)
     }
 
 
-//   private:
     int cod;
     string ciudad;
     listaDCRest *listaRestaurante = NULL;
@@ -64,9 +63,7 @@ class listaDCiudad {
 	void reporteCiudades(string pais);
 
 
-
-	    
- //  private:
+  
     pnodoCiudad primero;
   
 };
@@ -136,6 +133,8 @@ listaDCiudad::~listaDCiudad()
    }
    primero=NULL;
 }
+
+
 
 void listaDCiudad::reporteCiudades(string pais)
 {

@@ -70,6 +70,7 @@ class cargarArchivo {
     listaDPais *listaPais;
     listaClientes *listaCliente;
     listaDFila *listaFila;
+
     friend MainMenu();
   
 };
@@ -1587,7 +1588,7 @@ void cargarArchivo::SubMenu63(){
 				pnodoCiudad aux2 = aux->listaCiudad->primero;
 				while(aux2!=NULL){
 					if(aux2->cod == temp2){
-						cout<< "\nSe esta generando el archivo Reporte_Restaurante_"+aux2->ciudad+".txt\n.\n.\n.\n"<<endl;
+						cout<< "\nSe esta generando el archivo Reporte_Restaurantes_"+aux2->ciudad+".txt\n.\n.\n.\n"<<endl;
 						aux2->listaRestaurante->reporteRestaurante(aux2->ciudad);
 						return;
 					}
@@ -1609,68 +1610,52 @@ void cargarArchivo::SubMenu64(){
 
 }
 
-void cargarArchivo::SubMenu65(){
-	string codPais;
-	cout<< "Ingrese el codigo de pais: ";
-	cin >> codPais;
-	string codCiudad;
-	cout<< "Ingrese el codigo de ciudad: ";
-	cin >> codCiudad;
-	string codRest;
-	cout<< "Ingrese el codigo de restaurante: ";
-	cin >> codRest;
-	string codMenu;
-	cout<< "Ingrese el codigo de menu: ";
-	cin >> codMenu;
-	string codProd;
-	cout<< "Ingrese el codigo de producto: ";
-	cin >> codProd;
-	int temp = stoi(codPais);
-	int temp2 = stoi(codCiudad);
-	int temp3 = stoi(codRest);
-	int temp4 = stoi(codMenu);
-	int temp5 = stoi(codProd);
-	pnodoPais aux = listaPais->primero;
-	if(listaPais->buscarPais(temp)==true){
+//Reporte Restaurante mas buscado 
+void cargarArchivo::SubMenu65() {
+	int contTop = 0;
+    int codPaisTop = 0;
+    int codCiudadTop = 0;
+    int codRestTop = 0;
+    string restTop = "";
+    
+	pnodoPais aux = listaPais->GetPrimero();
 		while(aux!=NULL){
-			if(aux->cod == temp){
-				pnodoCiudad aux2 = aux->listaCiudad->primero;
-				while(aux2!=NULL){
-					if(aux2->cod == temp2){
-						pnodoRest aux3 = aux2->listaRestaurante->primero;
-						pnodoRest head = aux2->listaRestaurante->primero;
-							while(aux3->siguiente!=head && aux3->cod!=temp3)
-								aux3=aux3->siguiente;
-							if(aux3->cod==temp3){
-								pnodoMenu aux4 = aux3->listaMenu->primero;
-								while(aux4!=NULL){
-									if(aux4->cod == temp4){
-										listaPais->MostrarPosicion(listaPais->buscarPos(temp));
-										aux->listaCiudad->MostrarPosicion(aux->listaCiudad->buscarPos(temp2));
-										aux2->listaRestaurante->MostrarPosicion(aux2->listaRestaurante->buscarPos(temp3));	
-										aux3->listaMenu->MostrarPosicion(aux3->listaMenu->buscarPos(temp4));
-										aux4->listaProd->MostrarPosicion(aux4->listaProd->buscarPos(temp5));
-										return;
-									}
-								aux4= aux4->siguiente;
-								}
-								cout<<"Menu no existe"<<endl;
-								return;
-							}else{
-								cout<<"Restaurante no existe"<<endl;
-								return;
-							}
-						}
-				aux2= aux2->siguiente;
+			pnodoCiudad aux2 = aux->listaCiudad->primero;
+			while(aux2!=NULL){
+				pnodoRest aux3 = aux2->listaRestaurante->buscarMayor();
+				if(aux3 == NULL){
+				}else{
+					if(aux3->counter > contTop){
+					contTop = aux3->counter;
+					codPaisTop = aux->cod;
+					codCiudadTop = aux2->cod;
+					codRestTop = aux3->cod;
+					restTop = aux3->rest;
+					}
 				}
-				cout<<"Ciudad no existe"<<endl;
-				return;
+			aux2= aux2->siguiente;
 			}
-		aux=aux->siguiente;
-		}		
-	}
-	cout<<"Pais no existe"<<endl;
-	return;
+		aux=aux->siguiente;	
+		}
+    if (contTop == 0) {
+        cout << "\n***AUN NO SE HA BUSCADO NINGUN RESTAURANTE***" << endl << endl;
+    }
+    
+    else {
+        cout << "\nSe esta generando el archivo Reporte_Restaurante_Mas_Buscado.txt\n.\n.\n.\n" << endl;
+        ofstream archivoSalida("Reporte_Restaurante_Mas_Buscado.txt");
+        if (!archivoSalida.is_open()) {
+            cerr << "No se pudo abrir el archivo." << endl;
+        }
+        else {
+            archivoSalida << "REPORTE RESTAURANTE MAS BUSCADO " << endl << endl << endl;
+            archivoSalida << codPaisTop << ":" << codCiudadTop << ":" << codRestTop << ":" << restTop << endl;
+            archivoSalida << "Restaurante buscado : " << contTop <<" veces." <<endl;
+            cout << endl;
+            archivoSalida.close();
+            cout << "Reporte generado";
+        }
+    }
 }
 
 void cargarArchivo::SubMenu66(){

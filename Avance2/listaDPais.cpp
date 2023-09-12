@@ -12,7 +12,6 @@ class nodoLDPais {
     {
        cod = codigo;
        pais = nombre;
-       counter = 0;
        listaCiudad = new listaDCiudad();
        siguiente = NULL;
        anterior =NULL;
@@ -22,7 +21,6 @@ nodoLDPais(int codigo, string nombre,  nodoLDPais * signodo)
     {
        cod = codigo;
        pais = nombre;
-       counter = 0;
        listaCiudad = new listaDCiudad();
        siguiente = signodo;
     }
@@ -35,7 +33,6 @@ int getCodigo(){
 //private:
     int cod;
     string pais;
-    int counter;
     listaDCiudad *listaCiudad = NULL;
     nodoLDPais *siguiente;
     nodoLDPais *anterior;
@@ -393,7 +390,6 @@ void listaDPais:: MostrarPosicion(int pos)
         	if(pos==1)
         	{
         		pnodoPais aux=  primero;
-        		aux->counter++;
         		cout<<"Pais encontrado: "<<aux->cod<<":"<<aux->pais<<endl;      
 			}else{ 
             	int cont=2;
@@ -404,7 +400,6 @@ void listaDPais:: MostrarPosicion(int pos)
              		cont++;
             	}
             	aux=aux->siguiente;
-            	aux->counter++;
             	cout<<"Pais encontrado: "<<aux->cod<<":"<<aux->pais<<endl;                
           }//else
     	}//else

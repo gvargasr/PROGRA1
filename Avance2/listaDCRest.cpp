@@ -11,6 +11,7 @@ class nodoLDCRest {
     {
        cod = codigo;
        rest = nombre;
+       counter = 0;
        siguiente = NULL;
        anterior =NULL;
        listaMenu = new listaDMenu();
@@ -21,13 +22,14 @@ class nodoLDCRest {
     {
        cod = codigo;
        rest = nombre;
+       counter = 0;
        siguiente = signodo;
        listaMenu = new listaDMenu();
        
 
     }
 
-    int cod;
+    int cod, counter;
     string rest;
     listaDMenu *listaMenu = NULL;
     nodoLDCRest *siguiente;
@@ -61,6 +63,10 @@ class listaDCRest {
 	int buscarPos(int codigo);
 	void MostrarPosicion(int pos);
 	void reporteRestaurante(string ciudad);
+	int codigoTop();
+	pnodoRest buscarMayor();
+
+
 
     
 //   private:
@@ -141,7 +147,7 @@ void listaDCRest::reporteRestaurante(string ciudad)
 {
    pnodoRest aux=primero;
    
-    ofstream archivo_salida("Reporte_Restaurante_"+ciudad+".txt");
+    ofstream archivo_salida("Reporte_Restaurantes_"+ciudad+".txt");
     if (!archivo_salida.is_open()) {
         cerr << "No se pudo abrir el archivo." <<endl;
     }
@@ -299,6 +305,27 @@ void listaDCRest::BorrarInicio()
 }
 
 
+pnodoRest listaDCRest::buscarMayor(){
+	if(primero == NULL){
+		return primero;
+	}
+   pnodoRest aux=primero;
+   pnodoRest top = primero;
+   		while(aux->siguiente!=primero){                        
+      		if(aux->counter > top->counter){
+      			top = aux;
+			}  
+      		aux = aux->siguiente;
+     	}	
+     	if(aux->counter > top->counter){
+     		top = aux;
+		 }
+	return top;
+    cout<<endl;
+}
+
+
+
 int listaDCRest::buscarPos(int codigo){
 	if(ListaVacia()){
 		return -1;
@@ -368,6 +395,31 @@ void listaDCRest:: BorrarPosicion(int pos)
   }
 }
 
+// Codigo de restaurante mas buscado 
+/*int listaDCRest::codigoTop()
+{
+	int count = 0;
+	int codTop = 0;
+   pnodoRest aux=primero;
+   while(aux->siguiente!=primero)
+     {
+      if(aux->counter > count){
+      	count = aux->counter;
+      	codTop = aux->cod;
+      	aux = aux->siguiente;
+	  }
+	  else{
+	  	aux = aux->siguiente;
+	  }                          
+
+     }
+     if(aux->counter > count){
+     	count = aux->counter;
+      	codTop = aux->cod;
+	 }
+	return codTop;
+}   */
+
 void listaDCRest::Mostrar()
 {
    pnodoRest aux=primero;
@@ -378,15 +430,9 @@ void listaDCRest::Mostrar()
       aux = aux->siguiente;
      }
      cout<<aux->cod<<":"<<aux->rest << "\n";
-     //EXTRA
+     
      cout<<endl;
-    /* cout<< "primero";
-     cout<<endl;
-     cout<<aux->siguiente->valor<<"->";
-     cout<<endl;
-     cout<< "ultimo";
-     cout<<endl;
-     cout<<primero->anterior->valor<<"->";*/
+
 }   
 
 void listaDCRest:: MostrarPosicion(int pos)
@@ -398,6 +444,7 @@ void listaDCRest:: MostrarPosicion(int pos)
    {
    	pnodoRest aux=  primero;
    	cout << "Restaurante encontrado: "<<aux->cod<<":"<<aux->rest<< endl;
+   	aux->counter++;
    }else{
     if(pos>largoLista()||(pos<=0))
     {
@@ -411,6 +458,7 @@ void listaDCRest:: MostrarPosicion(int pos)
          cont++;
        }
         aux=aux->siguiente;
+        aux->counter++;
         cout << "Restaurante encontrado: "<<aux->cod<<":"<<aux->rest<< endl;
      }
     }
