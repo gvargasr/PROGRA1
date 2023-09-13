@@ -304,7 +304,6 @@ void listaDCRest::BorrarInicio()
     }
 }
 
-
 pnodoRest listaDCRest::buscarMayor(){
 	if(primero == NULL){
 		return primero;

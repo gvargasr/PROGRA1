@@ -11,6 +11,7 @@ class nodoLDMenu {
     nodoLDMenu(int codigo, string nombre)
     {
        cod = codigo;
+       counter = 0;
        nomMenu = nombre;
        siguiente = NULL;
        anterior =NULL;
@@ -20,6 +21,7 @@ class nodoLDMenu {
 nodoLDMenu(int codigo, string nombre, nodoLDMenu * signodo)
     {
        cod = codigo;
+       counter = 0;
        nomMenu = nombre;
        siguiente = signodo;
        listaProd = new listaDProducto();
@@ -27,7 +29,7 @@ nodoLDMenu(int codigo, string nombre, nodoLDMenu * signodo)
     }
 	
 //   private:
-    int cod;
+    int cod,counter;
     string nomMenu;
     listaDProducto *listaProd = NULL;
     nodoLDMenu *siguiente;
@@ -356,6 +358,7 @@ void listaDMenu:: MostrarPosicion(int pos)
         {
         	pnodoMenu aux=  primero;
            cout << "Menu Encontrado: "<<aux->cod<<":"<<aux->nomMenu<< endl;
+           aux->counter++;
 		}
         else
         {
@@ -368,6 +371,7 @@ void listaDMenu:: MostrarPosicion(int pos)
             }
     		 aux=aux->siguiente;
             cout << "Menu encontrado: "<<aux->cod<<":"<<aux->nomMenu<< endl;
+            aux->counter++;
           }//else
         }//else
       }//else

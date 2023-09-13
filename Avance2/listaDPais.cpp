@@ -406,26 +406,7 @@ void listaDPais:: MostrarPosicion(int pos)
     }//else
 }
 
-/*
-int main()
-{
-   listaDPais Lista;
-   
-    
-   
-    Lista.InsertarFinal(123, "Panama");    // 2 20 10 11
-    Lista.getNodo();
- /*   Lista.InsertarFinal(345, "Estados Unidos");
-    Lista.InsertarFinal(4567,"Mexico");
-    Lista.InsertarFinal(123,"Peru");
-    Lista.Mostrar();
-//    Lista.primero.InsertarInicio(3, "Cargago");
-/*	cout << Lista->largoLista()<<endl;
-	Lista->buscarCodigo(123);
-	cout<<Lista->primero->Mostrar();
- //   Lista.~listaDPais();
-  
- //  cin.get();
-	return 0;
-}
-*/
+
+
+
+

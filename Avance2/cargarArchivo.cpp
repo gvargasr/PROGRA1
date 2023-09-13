@@ -20,6 +20,8 @@ class cargarArchivo {
     void Menu();
     void cargaInicial();
     void EliminarPais(int codigo);
+    void buscarMenuMasBuscado(listaDPais* listaPaises);
+
     void MostrarTodo();
 
     void SubMenu1();
@@ -239,7 +241,7 @@ try{
 							pnodoRest head = aux2->listaRestaurante->primero;
 								while(aux3->siguiente!=head && aux3->cod!=temp3)
 									aux3=aux3->siguiente;
-								if(aux3->cod==temp3);
+								if(aux3->cod==temp3){
 									pnodoMenu aux4 = aux3->listaMenu->primero;
 									while(aux4!=NULL){
 										if(aux4->cod == temp4){
@@ -247,7 +249,7 @@ try{
 										}
 									aux4= aux4->siguiente;
 									}
-								
+							}
 						}
 					aux2= aux2->siguiente;
 					}
@@ -277,7 +279,85 @@ try{
     }
 }
 
+void cargarArchivo::buscarMenuMasBuscado(listaDPais* listaPaises) {
+    int maxContador = 0;
+    nodoLDPais* paisActual = listaPaises->primero;
 
+    if (paisActual == NULL) {
+        cout << "No se han buscado menus." << endl;
+        return;
+    }
+
+    while (paisActual != NULL) {
+        nodoLDCiudad* ciudadActual = paisActual->listaCiudad->primero;
+
+        while (ciudadActual != NULL) {
+            nodoLDCRest* restActual = ciudadActual->listaRestaurante->primero;
+
+            nodoLDCRest* primerRestaurante = restActual;
+
+            while (true) {
+                nodoLDMenu* menuActual = restActual->listaMenu->primero;
+                while (menuActual != NULL) {
+                    if (menuActual->counter > maxContador) {
+                        maxContador = menuActual->counter;
+                    }
+                    menuActual = menuActual->siguiente;
+                }
+
+                restActual = restActual->siguiente;
+                if (restActual == primerRestaurante) {
+                    break;
+                }
+            }
+
+            ciudadActual = ciudadActual->siguiente;
+        }
+
+        paisActual = paisActual->siguiente;
+    }
+
+    if (maxContador == 0) {
+        cout << "No se han buscado menus." << endl;
+    }
+    else {
+        paisActual = listaPaises->primero;
+        while (paisActual != NULL) {
+            nodoLDCiudad* ciudadActual = paisActual->listaCiudad->primero;
+
+            while (ciudadActual != NULL) {
+                nodoLDCRest* restActual = ciudadActual->listaRestaurante->primero;
+
+                nodoLDCRest* primerRestaurante = restActual;
+
+                while (true) {
+                    nodoLDMenu* menuActual = restActual->listaMenu->primero;
+
+                    while (menuActual != NULL) {
+                        if (menuActual->counter == maxContador) {
+                            cout << "País: " << paisActual->pais << endl;
+                            cout << "Ciudad: " << ciudadActual->ciudad << endl;
+                            cout << "Restaurante: " << restActual->rest << endl;
+                            cout << "Menú: " << menuActual->nomMenu << endl;
+                            cout << "Contador: " << maxContador << endl;
+                        }
+                        menuActual = menuActual->siguiente;
+                    }
+
+                    restActual = restActual->siguiente;
+
+                    if (restActual == primerRestaurante) {
+                        break;
+                    }
+                }
+
+                ciudadActual = ciudadActual->siguiente;
+            }
+
+            paisActual = paisActual->siguiente;
+        }
+    }
+}
 
 
 void cargarArchivo::EliminarPais(int codigo){
@@ -1659,16 +1739,57 @@ void cargarArchivo::SubMenu65() {
 }
 
 void cargarArchivo::SubMenu66(){
-	string cedula;
-	cout<< "Ingrese el numero de cedula que desea encontrar: ";
-	cin >> cedula;
-	
-	listaCliente->MostrarPosicion(listaCliente->buscarPos(stoi(cedula)));
+	buscarMenuMasBuscado(listaPais);
 }
 
 void cargarArchivo::SubMenu67(){
-	string cod;
-	cout<< "Se esta generando el archivo Reporte_Paises.txt";
+	int contTop = 0;
+    int codPaisTop = 0;
+    int codCiudadTop = 0;
+    int codRestTop = 0;
+    int codMenuTop = 0;
+    int codProdTop = 0;
+    string ProdTop = "";
+    
+		pnodoPais aux = listaPais->GetPrimero();
+		while(aux!=NULL){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+						nodoLDCRest *aux3 = aux2->listaRestaurante->primero;
+						nodoLDCRest *head = aux2->listaRestaurante->primero;
+				/*		while(aux3->siguiente!=head){
+								pnodoMenu aux4 = aux3->listaMenu->primero;
+								while(aux4!=NULL){
+								//	aux3->listaMenu->InsertarProducto(temp5, nombre, temp6, temp7, aux4->listaProd);
+								aux4= aux4->siguiente;
+								}
+						aux3 = aux3->siguiente;
+						}*/
+				aux2= aux2->siguiente;
+				}
+		aux=aux->siguiente;
+		}		
+		
+		
+ /*   if (contTop == 0) {
+        cout << "\n***AUN NO SE HA BUSCADO NINGUN RESTAURANTE***" << endl << endl;
+    }
+    
+    else {
+	cout<< "Se esta generando el archivo Reporte_Producto_Mas_Buscado.txt\n.\n.\n.\n" << endl;
+	    ofstream archivoSalida("Reporte_Producto_Mas_Buscado.txt");
+    if (!archivoSalida.is_open()) {
+        cerr << "No se pudo abrir el archivo." << endl;
+    }
+    else{
+        archivoSalida << "REPORTE PRODUCTO MAS BUSCADO " << endl << endl << endl;
+        archivoSalida << codPaisTop << ":" << codCiudadTop << ":" << codRestTop << ":" << codMenuTop << ":"<<codProdTop<<":"<<ProdTop << endl; 
+        archivoSalida << "Producto buscado : " << contTop <<" veces." <<endl;
+        cout << endl;
+        archivoSalida.close();
+        cout << "Reporte generado";
+    }
+}*/
 }
 
 void cargarArchivo::SubMenu68(){
@@ -1776,6 +1897,7 @@ void cargarArchivo::SubMenu81(int cedula){
 											aux6 = aux6->siguiente;
 										}
 											listaCliente->InsertarCompra(aux5->cod,aux5->nomProd,aux5->kcal,aux5->precio,cantidad,aux6->listaComp);
+											aux5->counter =+cantidad;
 										return;
 									}
 								aux4= aux4->siguiente;
@@ -1884,10 +2006,5 @@ int main(){
 }
 
 
-
-
-
-
-/* TODO (#1#): prevenir lineas en blanco al leer archivos */
 
 

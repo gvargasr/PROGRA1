@@ -11,6 +11,7 @@ class nodoLDProducto {
     	nomProd = "";
 		kcal = -1;
     	precio = -1;
+    	counter = 0;
     	siguiente = NULL;
     	anterior =NULL;
 	}
@@ -20,6 +21,7 @@ class nodoLDProducto {
        nomProd = nombre;
        kcal = cal;
        precio = price;
+       counter = 0;
        siguiente = NULL;
        anterior =NULL;
     }
@@ -30,11 +32,12 @@ nodoLDProducto(int codigo, string nombre, int kcal, int precio, nodoLDProducto *
        nomProd = nombre;
        kcal = kcal;
        precio = precio;
+       counter = 0;
        siguiente = signodo;
     }
 
 //   private:
-    int cod,kcal,precio;
+    int cod,kcal,precio, counter;
     string nomProd;
     nodoLDProducto *siguiente;
     nodoLDProducto *anterior;
@@ -63,6 +66,10 @@ class listaDProducto {
     int buscarPos(int codigo);
     void MostrarPosicion(int pos);
     pnodoProd ReturnPosicion(int pos);
+    pnodoProd buscarMayor();\
+    void busqueda(int pais, int ciudad, int rest, int menu, int codigo);
+
+
 
 
     
@@ -99,6 +106,23 @@ int listaDProducto::largoLista(){
     
 }
 
+pnodoProd listaDProducto::buscarMayor(){
+	if(primero == NULL){
+		return primero;
+	}
+   pnodoProd aux=primero;
+   pnodoProd top = primero;
+   		while(aux->siguiente!=NULL){                        
+      		if(aux->counter > top->counter){
+      			top = aux;
+			}  
+      		aux = aux->siguiente;
+     	}	
+	return top;
+    cout<<endl;
+}
+
+
 void listaDProducto::InsertarInicio(int codigo, string nombre, int kcal, int precio)
 {
    if (ListaVacia())
@@ -115,6 +139,24 @@ void listaDProducto::InsertarInicio(int codigo, string nombre, int kcal, int pre
 }
 
 
+void listaDProducto::busqueda(int pais, int ciudad, int rest, int menu, int codigo){
+	if(ListaVacia()){
+		cout<<"No hay menus ingresados"<<endl<<endl;
+	}
+	else{
+		pnodoProd aux=primero;
+		while(aux!=NULL)
+		{
+			if(aux->cod == codigo){
+			cout<<"Producto encontrado: \nPais: "<<pais<<"\nCiudad: "<<ciudad<<"\nRestaurante: "<<rest<<"\nMenu: "<<aux->cod<<"\nProducto: "<<aux->nomProd<<"\nPrecio: "<<aux->precio<<"\nKcal: "<<aux->kcal<<endl<<endl;
+			return;
+		}
+			else
+			aux=aux->siguiente;
+		}
+		cout<<"El producto con codigo: "<<codigo<<" no se encuentra en:\nPais: "<<pais<<"\nCiudad: "<<ciudad<<"\nRestaurante: "<<rest<<"\nMenu: "<<menu<<endl<<endl;
+	}
+}
 
 void listaDProducto::InsertarFinal(int codigo, string nombre,int kcal, int precio){
    if (ListaVacia()){
