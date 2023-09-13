@@ -20,7 +20,7 @@ class cargarArchivo {
     void Menu();
     void cargaInicial();
     void EliminarPais(int codigo);
-    void buscarMenuMasBuscado(listaDPais* listaPaises);
+    void buscarMenuMasBuscado();
 
     void MostrarTodo();
 
@@ -279,84 +279,9 @@ try{
     }
 }
 
-void cargarArchivo::buscarMenuMasBuscado(listaDPais* listaPaises) {
-    int maxContador = 0;
-    nodoLDPais* paisActual = listaPaises->primero;
+void cargarArchivo::buscarMenuMasBuscado() {
+	
 
-    if (paisActual == NULL) {
-        cout << "No se han buscado menus." << endl;
-        return;
-    }
-
-    while (paisActual != NULL) {
-        nodoLDCiudad* ciudadActual = paisActual->listaCiudad->primero;
-
-        while (ciudadActual != NULL) {
-            nodoLDCRest* restActual = ciudadActual->listaRestaurante->primero;
-
-            nodoLDCRest* primerRestaurante = restActual;
-
-            while (true) {
-                nodoLDMenu* menuActual = restActual->listaMenu->primero;
-                while (menuActual != NULL) {
-                    if (menuActual->counter > maxContador) {
-                        maxContador = menuActual->counter;
-                    }
-                    menuActual = menuActual->siguiente;
-                }
-
-                restActual = restActual->siguiente;
-                if (restActual == primerRestaurante) {
-                    break;
-                }
-            }
-
-            ciudadActual = ciudadActual->siguiente;
-        }
-
-        paisActual = paisActual->siguiente;
-    }
-
-    if (maxContador == 0) {
-        cout << "No se han buscado menus." << endl;
-    }
-    else {
-        paisActual = listaPaises->primero;
-        while (paisActual != NULL) {
-            nodoLDCiudad* ciudadActual = paisActual->listaCiudad->primero;
-
-            while (ciudadActual != NULL) {
-                nodoLDCRest* restActual = ciudadActual->listaRestaurante->primero;
-
-                nodoLDCRest* primerRestaurante = restActual;
-
-                while (true) {
-                    nodoLDMenu* menuActual = restActual->listaMenu->primero;
-
-                    while (menuActual != NULL) {
-                        if (menuActual->counter == maxContador) {
-                            cout << "País: " << paisActual->pais << endl;
-                            cout << "Ciudad: " << ciudadActual->ciudad << endl;
-                            cout << "Restaurante: " << restActual->rest << endl;
-                            cout << "Menú: " << menuActual->nomMenu << endl;
-                            cout << "Contador: " << maxContador << endl;
-                        }
-                        menuActual = menuActual->siguiente;
-                    }
-
-                    restActual = restActual->siguiente;
-
-                    if (restActual == primerRestaurante) {
-                        break;
-                    }
-                }
-
-                ciudadActual = ciudadActual->siguiente;
-            }
-
-            paisActual = paisActual->siguiente;
-        }
-    }
 }
 
 
@@ -1739,7 +1664,7 @@ void cargarArchivo::SubMenu65() {
 }
 
 void cargarArchivo::SubMenu66(){
-	buscarMenuMasBuscado(listaPais);
+	buscarMenuMasBuscado();
 }
 
 void cargarArchivo::SubMenu67(){
@@ -1790,11 +1715,91 @@ void cargarArchivo::SubMenu67(){
         cout << "Reporte generado";
     }
 }*/
-}
 
-void cargarArchivo::SubMenu68(){
 	string cod;
 	cout<< "Se esta generando el archivo Reporte_Paises.txt";
+}
+//Consultar precio de producto
+void cargarArchivo::SubMenu68(){
+	string codPais;
+	cout<< "Ingrese el codigo de pais: ";
+	cin >> codPais;
+	string codCiudad;
+	cout<< "Ingrese el codigo de ciudad: ";
+	cin >> codCiudad;
+	string codRest;
+	cout<< "Ingrese el codigo de restaurante: ";
+	cin >> codRest;
+	string codMenu;
+	cout<< "Ingrese el codigo de menu: ";
+	cin >> codMenu;
+	string codProd;
+	cout<< "Ingrese el codigo de producto: ";
+	cin >> codProd;
+	cout<<endl<<endl;
+	int temp = stoi(codPais);
+	int temp2 = stoi(codCiudad);
+	int temp3 = stoi(codRest);
+	int temp4 = stoi(codMenu);
+	int temp5 = stoi(codProd);
+	pnodoPais aux = listaPais->primero;
+	if(listaPais->buscarPais(temp)==true){
+		while(aux!=NULL){
+			if(aux->cod == temp){
+				pnodoCiudad aux2 = aux->listaCiudad->primero;
+				while(aux2!=NULL){
+					if(aux2->cod == temp2){
+						pnodoRest aux3 = aux2->listaRestaurante->primero;
+						pnodoRest head = aux2->listaRestaurante->primero;
+							while(aux3->siguiente!=head && aux3->cod!=temp3)
+								aux3=aux3->siguiente;
+							if(aux3->cod==temp3){
+								pnodoMenu aux4 = aux3->listaMenu->primero;
+								while(aux4!=NULL){
+									if(aux4->cod == temp4){
+										listaPais->MostrarPosicion(listaPais->buscarPos(temp));
+										aux->listaCiudad->MostrarPosicion(aux->listaCiudad->buscarPos(temp2));
+										aux2->listaRestaurante->MostrarPosicion(aux2->listaRestaurante->buscarPos(temp3));	
+										aux3->listaMenu->MostrarPosicion(aux3->listaMenu->buscarPos(temp4));
+										cout << "\nSe esta generando el archivo Reporte_Precio_Producto.txt\n.\n.\n.\n" << endl;
+        								ofstream archivoSalida("Reporte_Precio_Producto.txt");
+        								if (!archivoSalida.is_open()) {
+            								cerr << "No se pudo abrir el archivo." << endl;
+        								}
+        								else {
+	         								archivoSalida << "REPORTE PRECIO DE PRODUCTO " << endl << endl << endl;
+	         								archivoSalida << "Pais : "<<aux->pais<<"\n"<<"Ciudad: "<<aux2->ciudad<<"\n"<<"Restaurante: "<<aux3->rest<<"\n"<<"Menu: "<<aux4->nomMenu<<"\n";
+									        archivoSalida << aux4->listaProd->MostrarPrecio(aux4->listaProd->buscarPos(temp5));
+									        cout << endl;
+									        archivoSalida.close();
+									        cout << "Reporte generado";
+								        }
+	         							archivoSalida << "REPORTE PRECIO DE PRODUCTO " << endl << endl << endl;
+	         							archivoSalida << "Pais : "<<aux->pais<<"\n"<<"Ciudad: "<<aux2->ciudad<<"\n"<<"Restaurante: "<<aux3->rest<<"\n"<<"Menu: "<<aux4->nomMenu<<"\n";
+									    archivoSalida << aux4->listaProd->MostrarPrecio(aux4->listaProd->buscarPos(temp5));
+									    cout << endl;
+									    archivoSalida.close();
+										return;
+									}
+								aux4= aux4->siguiente;
+								}
+								cout<<"Menu no existe"<<endl;
+								return;
+							}else{
+								cout<<"Restaurante no existe"<<endl;
+								return;
+							}
+						}
+				aux2= aux2->siguiente;
+				}
+				cout<<"Ciudad no existe"<<endl;
+				return;
+			}
+		aux=aux->siguiente;
+		}		
+	}
+	cout<<"Pais no existe"<<endl;
+	return;
 }
 
 //Comprar

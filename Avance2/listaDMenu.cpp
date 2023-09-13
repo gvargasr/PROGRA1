@@ -63,6 +63,8 @@ class listaDMenu {
 	int buscarPos(int codigo);
 	void MostrarPosicion(int pos);
 	void reporteMenu(string rest);
+	pnodoMenu buscarMayor();
+
     
 //   private:
     pnodoMenu primero;
@@ -327,6 +329,24 @@ void listaDMenu::reporteMenu(string rest)
     archivo_salida.close();
 	cout << "Reporte generado";
 }
+
+pnodoMenu listaDMenu::buscarMayor(){
+	if(primero == NULL){
+		return primero;
+	}
+   pnodoMenu aux=primero;
+   pnodoMenu top = primero;
+   		while(aux->siguiente!=NULL){                        
+      		if(aux->counter > top->counter){
+      			top = aux;
+			}  
+      		aux = aux->siguiente;
+     	}	
+	return top;
+    cout<<endl;
+}
+
+
 
 void listaDMenu::Mostrar()
 {

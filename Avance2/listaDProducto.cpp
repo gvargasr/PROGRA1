@@ -68,6 +68,8 @@ class listaDProducto {
     pnodoProd ReturnPosicion(int pos);
     pnodoProd buscarMayor();\
     void busqueda(int pais, int ciudad, int rest, int menu, int codigo);
+    string MostrarPrecio(int pos);
+
 
 
 
@@ -271,7 +273,6 @@ int listaDProducto::buscarPos(int codigo){
 		while(aux!=NULL)
 		{
 			if(aux->cod == codigo){
-				cout<<cont;
 			//cout<<"El string "<<codigo<<" si se encuentra en la lista."<<endl;
 			return cont;
 		}
@@ -340,6 +341,43 @@ void listaDProducto::Mostrar()
 
 pnodoProd listaDProducto::GetPrimero(){
 	return primero;
+}
+
+
+string listaDProducto::MostrarPrecio(int pos)
+{
+     if(ListaVacia())
+     {
+              return "Aun no hay productos registrados.";
+     }
+     else
+     {
+        if((pos>largoLista())||(pos<0))//no validas
+        {
+        return "Producto no se encuentra.";
+        }
+        else
+        {
+        if(pos==1)
+        {
+			pnodoProd aux=  primero;
+			return "El precio de "+aux->nomProd+" es: "+to_string(aux->precio);
+        	
+		}
+        else
+        {
+            int cont=2;
+            pnodoProd aux=  primero;
+            while(cont<pos)
+            {
+             aux=aux->siguiente;
+             cont++;
+            }
+            aux=aux->siguiente;
+            return "El precio de "+aux->nomProd+" es: "+to_string(aux->precio);
+          }//else
+        }//else
+      }//else
 }
 
 void listaDProducto::MostrarPosicion(int pos)
