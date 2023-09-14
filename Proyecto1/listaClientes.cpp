@@ -360,6 +360,7 @@ void listaClientes:: MostrarPosicion(int pos){
 				aux=aux->siguiente;
             	cout << "Cliente encontrado: "<<aux->valor<<":"<<aux->nombre<< endl;
             }//else
+            cout<<"RESTAURANTE NO EXISTE";
         }//else
     }//else
 

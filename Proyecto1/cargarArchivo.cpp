@@ -710,7 +710,7 @@ void cargarArchivo::SubMenu32(){
 		aux=aux->siguiente;
 		}
 	}
-	cout<<"PAIS NO EXISTE";
+	cout<<"NO SE ELIMINO CIUDAD, CODIGOS INCORRECTOS";
 }
 
 void cargarArchivo::SubMenu33(){
@@ -737,12 +737,13 @@ void cargarArchivo::SubMenu33(){
 						return;
 					}
 					aux2= aux2->siguiente;
-				}cout<<"CIUDAD NO EXISTE";
+				}
+				cout<<"NO SE ELIMINO RESTAURANTE, CODIGOS INCORRECTOS";
 				return;	
 			}
 		aux=aux->siguiente;
 		}	
-	cout<<"PAIS NO EXISTE";
+	cout<<"NO SE ELIMINO RESTAURANTE, CODIGOS INCORRECTOS";
 	}
 }
 
@@ -779,18 +780,18 @@ void cargarArchivo::SubMenu34(){
 							aux3->listaMenu->BorrarPosicion(aux3->listaMenu->buscarPos(temp4));
 							return;
 							}
-							cout<<"RESTAURANTE NO EXISTE/eliminar menu";	
+							cout<<"NO SE ELIMINO MENU, CODIGOS INCORRECTOS";	
 							return;
 					}
 					aux2= aux2->siguiente;
 				}
-			cout<<"CIUDAD NO EXISTE/eliminar menu";
+			cout<<"NO SE ELIMINO MENU, CODIGOS INCORRECTOS";
 			return;
 			}
 		aux=aux->siguiente;
 		}
 	}
-	cout<<"PAIS NO EXISTE/eliminar menu";
+	cout<<"NO SE ELIMINO MENU, CODIGOS INCORRECTOS";
 }
 
 void cargarArchivo::SubMenu35(){
@@ -834,22 +835,22 @@ void cargarArchivo::SubMenu35(){
 									}
 								aux4= aux4->siguiente;
 								}
-								cout<<"Menu no existe/eliminar prod"<<endl;
+								cout<<"NO SE ELIMINO PRODUCTO, CODIGOS INCORRECTOS"<<endl;
 								return;
 							}else{
-								cout<<"Restaurante no existe/eliminar prod"<<endl;
+								cout<<"NO SE ELIMINO PRODUCTO, CODIGOS INCORRECTOS"<<endl;
 								return;
 							}
 						}
 				aux2= aux2->siguiente;
 				}
-				cout<<"Ciudad no existe/eliminar prod"<<endl;
+				cout<<"NO SE ELIMINO PRODUCTO, CODIGOS INCORRECTOS"<<endl;
 				return;
 			}
 		aux=aux->siguiente;
 		}		
 	}
-	cout<<"Ciudad no existe/eliminar prod"<<endl;
+	cout<<"NO SE ELIMINO PRODUCTO, CODIGOS INCORRECTOS"<<endl;
 	return;
 }
 
@@ -947,8 +948,9 @@ void cargarArchivo::SubMenu42(){
 			}
 		aux=aux->siguiente;
 		}
+		cout<<"CIUDAD NO EXISTE";
 	}
-	cout<<"PAIS NO EXISTE";
+	cout<<"CIUDAD NO EXISTE";
 }
 
 void cargarArchivo::SubMenu43(){
@@ -978,13 +980,13 @@ void cargarArchivo::SubMenu43(){
 					}
 					aux2= aux2->siguiente;
 				}
-				cout<<"CIUDAD NO EXISTE";
+				cout<<"RESTAURANTE NO EXISTE";
 				return;	
 			}
 		aux=aux->siguiente;
 		}	
-	cout<<"PAIS NO EXISTE";
 	}
+	cout<<"RESTAURANTE NO EXISTE";
 }
 
 void cargarArchivo::SubMenu44(){
@@ -1022,18 +1024,18 @@ void cargarArchivo::SubMenu44(){
 							aux3->listaMenu->MostrarPosicion(aux3->listaMenu->buscarPos(temp4));
 							return;
 							}
-							cout<<"RESTAURANTE NO EXISTE";	
+							cout<<"MENU NO EXISTE";	
 							return;
 					}
 					aux2= aux2->siguiente;
 				}
-			cout<<"CIUDAD NO EXISTE";
+			cout<<"MENU NO EXISTE";
 			return;
 			}
 		aux=aux->siguiente;
 		}
 	}
-	cout<<"PAIS NO EXISTE";
+	cout<<"MENU NO EXISTE";
 }
 
 void cargarArchivo::SubMenu45(){
@@ -1081,22 +1083,22 @@ void cargarArchivo::SubMenu45(){
 									}
 								aux4= aux4->siguiente;
 								}
-								cout<<"Menu no existe"<<endl;
+								cout<<"PRODUCTO NO EXISTE"<<endl;
 								return;
 							}else{
-								cout<<"Restaurante no existe"<<endl;
+								cout<<"PRODUCTO NO EXISTE"<<endl;
 								return;
 							}
 						}
 				aux2= aux2->siguiente;
 				}
-				cout<<"Ciudad no existe"<<endl;
+				cout<<"PRODUCTO NO EXISTE"<<endl;
 				return;
 			}
 		aux=aux->siguiente;
 		}		
 	}
-	cout<<"Pais no existe"<<endl;
+	cout<<"PRODUCTO NO EXISTE"<<endl;
 	return;
 }
 

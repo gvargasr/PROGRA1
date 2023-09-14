@@ -464,6 +464,7 @@ void listaDCRest:: MostrarPosicion(int pos)
         aux->counter++;
         cout << "Restaurante encontrado: "<<aux->cod<<":"<<aux->rest<< endl;
      }
+     
     }
   }
 }
